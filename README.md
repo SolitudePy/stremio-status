@@ -11,6 +11,7 @@ git pull https://github.com/SolitudePy/stremio-status.git
 cd stremio-status
 cp .env.example .env 
 ## Edit .env DB_PASSWORD, GRAFANA_PASSWORD, DOMAIN
+## Optionally: Discord alerts & Proxy configuration.
 docker compose up -d
 Access through localhost or your reverse-proxy setup (e.g Traefik)
 ```
