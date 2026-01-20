@@ -1,7 +1,7 @@
 # Stremio Status
 --------------------------------
 
-Access status page at https://status.stremio-status.com, analytics are at https://stats.stremio-status.com or through the status page link.
+Access status page at https://status.stremio-status.com, Grafana analytics are at https://stats.stremio-status.com or through the status page link.
 
 
 ## Self-host with Docker
@@ -13,4 +13,3 @@ cp .env.example .env
 docker compose up -d
 Access through localhost or your reverse-proxy setup (e.g Traefik)
 ```
-
