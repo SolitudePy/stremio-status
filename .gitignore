@@ -1,0 +1,15 @@
+# Secrets
+.env
+.env.local
+
+# Docker Data (if mapped locally)
+postgres_data/
+grafana_data/
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,83 @@
+services:
+  gatus:
+    image: twinproduction/gatus:latest
+    container_name: stremio-gatus
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "8081:8080"
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - ./gatus/config.yaml:/config/config.yaml
+    networks:
+      - stremio_status_net
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: stremio-gatus-postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=gatus
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=gatus
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - stremio_status_net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U gatus"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  grafana:
+    image: grafana/grafana-oss:latest
+    container_name: stremio-gatus-grafana
+    restart: always
+    ports:
+      - "3001:3000"
+    depends_on:
+      - postgres
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+      - GF_SERVER_ROOT_URL=https://${GF_SERVER_DOMAIN:-stats.${DOMAIN}}
+      - DOMAIN=${DOMAIN}
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Viewer
+      - GF_AUTH_ANONYMOUS_ORG_NAME=Main Org.
+      - GF_USERS_AUTO_ASSIGN_ORG=true
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_FORCE_MIGRATION=true
+      - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/etc/grafana/provisioning/dashboards/home.json
+      - GF_NEWS_NEWS_FEED_ENABLED=false
+      - GF_SECURITY_ALLOW_EMBEDDING=false
+      - GF_PANELS_DISABLE_SANITIZE_HTML=true
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+      - GF_AUTH_DISABLE_SIGNOUT_MENU=true
+      - GF_AUTH_ANONYMOUS_HIDE_VERSION=true
+      - GF_EXPLORE_ENABLED=false
+      - GF_HELP_ENABLED=false
+      - GF_UNIFIED_ALERTING_ENABLED=false
+      - GF_ALERTING_ENABLED=false
+      - DB_PASSWORD=${DB_PASSWORD}
+    networks:
+      - stremio_status_net
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  postgres_data:
+  grafana_data:
+
+networks:
+  stremio_status_net:

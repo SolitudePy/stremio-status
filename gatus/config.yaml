@@ -1,0 +1,272 @@
+anchors:
+  # ==========================================
+  # Base Check Template
+  # ==========================================
+  base-check: &base-check
+    interval: 5m
+    client:
+      timeout: 10s
+      headers:
+        User-Agent: "StremioStatus/1.0 (Mozilla/5.0 Compatible)"
+    ui:
+      badge:
+        response-time:
+          thresholds: [200, 400, 750, 1200, 2000] # Relaxed thresholds
+    alerts:
+      - type: discord
+        enabled: true
+        description: "Health check failed"
+        send-on-resolved: true
+
+  # ==========================================
+  # Universal Stremio Addon Validator
+  # Checks if the response is a valid Stremio Manifest (has id, version, resources)
+  # ==========================================
+  stremio-addon-check: &stremio-addon-check
+    <<: *base-check
+    conditions:
+      - "[STATUS] == 200"
+      - "[CERTIFICATE_EXPIRATION] > 72h"
+      - "has([BODY].id) == true"
+      - "has([BODY].version) == true"
+      - "has([BODY].resources) == true"
+
+storage:
+  type: postgres
+  path: "postgres://gatus:${POSTGRES_PASSWORD}@postgres:5432/gatus?sslmode=disable"
+  caching: true
+
+ui:
+  title: "Stremio Addons Status"
+  default-sort-by: group
+  header: "Stremio Status"
+  description: "Status page of popular Stremio addons."
+  buttons:
+    - name: "⭐ Star on GitHub"
+      link: "https://github.com/SolitudePy/stremio-status"
+    - name: "📈 Grafana Analytics"
+      link: "https://stats.${DOMAIN}/d/home-dashboard?kiosk"
+
+endpoints:
+  # ==========================================
+  # GROUP: General Scrapers
+  # ==========================================
+  - name: "! Torrentio"
+    group: 01. General Scrapers
+    url: "https://torrentio.strem.fun/manifest.json"
+    client:
+      proxy-url: "${PROXY_URL}"
+    <<: *stremio-addon-check
+
+  - name: Jackettio (ElfHosted)
+    group: 01. General Scrapers
+    url: "https://jackettio.elfhosted.com/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: TorBox
+    group: 01. General Scrapers
+    url: "https://stremio.torbox.app/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: NuvioStreams
+    group: 01. General Scrapers
+    url: "https://nuviostreams.hayd.uk/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: WebStreamr
+    group: 01. General Scrapers
+    url: "https://webstreamr.hayd.uk/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: AutoStream
+    group: 01. General Scrapers
+    url: "https://autostreamtest.onrender.com/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: USA TV
+    group: 01. General Scrapers
+    url: "https://848b3516657c-usatv.baby-beamup.club/manifest.json"
+    <<: *stremio-addon-check
+
+  # ==========================================
+  # GROUP: Metadata & Catalogs
+  # ==========================================
+  - name: Anime Kitsu
+    group: 02. Metadata & Catalogs
+    url: "https://anime-kitsu.strem.fun/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: Streaming Catalogs
+    group: 02. Metadata & Catalogs
+    url: "https://7a82163c306e-stremio-netflix-catalog-addon.baby-beamup.club/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: TMDB (ElfHosted)
+    group: 02. Metadata & Catalogs
+    url: "https://tmdb.elfhosted.com/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: AIOLists (ElfHosted)
+    group: 02. Metadata & Catalogs
+    url: "https://aiolists.elfhosted.com/manifest.json"
+    <<: *stremio-addon-check
+
+  # ==========================================
+  # GROUP: AIOStreams Instances
+  # ==========================================
+  - name: AIOStreams (ElfHosted)
+    group: 03. AIOStreams Instances
+    url: "https://aiostreams.elfhosted.com/stremio/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: AIOStreams (Nhyira)
+    group: 03. AIOStreams Instances
+    url: "https://aiostreamsfortheweak.nhyira.dev/stremio/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: AIOStreams (MidnightIgnite)
+    group: 03. AIOStreams Instances
+    url: "https://aiostreamsfortheweebs.midnightignite.me/stremio/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: AIOStreams (ATBP)
+    group: 03. AIOStreams Instances
+    url: "https://aio.atbphosting.com/stremio/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: AIOStreams (12312023)
+    group: 03. AIOStreams Instances
+    url: "https://aiostreams.12312023.xyz/stremio/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: AIOStreams (StremioFR)
+    group: 03. AIOStreams Instances
+    url: "https://aiostreams.stremiofr.com/stremio/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: AIOStreams (Kuu)
+    group: 03. AIOStreams Instances
+    url: "https://aiostreams.stremio.ru/stremio/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: AIOStreams (Viren070)
+    group: 03. AIOStreams Instances
+    url: "https://aiostreams.viren070.me/stremio/manifest.json"
+    <<: *stremio-addon-check
+
+  # ==========================================
+  # GROUP: AIOMetadata Instances
+  # ==========================================
+  - name: AIOMetadata (ElfHosted)
+    group: 04. AIOMetadata Instances
+    url: "https://aiometadata.elfhosted.com/stremio/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: AIOMetadata (Nhyira)
+    group: 04. AIOMetadata Instances
+    url: "https://aiometadatafortheweak.nhyira.dev/stremio/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: AIOMetadata (MidnightIgnite)
+    group: 04. AIOMetadata Instances
+    url: "https://aiometadatafortheweebs.midnightignite.me/stremio/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: AIOMetadata (12312023)
+    group: 04. AIOMetadata Instances
+    url: "https://aiometadata.12312023.xyz/stremio/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: AIOMetadata (Kuu)
+    group: 04. AIOMetadata Instances
+    url: "https://aiometadata.stremio.ru/stremio/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: AIOMetadata (ATBP)
+    group: 04. AIOMetadata Instances
+    url: "https://aiomd.atbphosting.com/stremio/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: AIOMetadata (Viren070)
+    group: 04. AIOMetadata Instances
+    url: "https://aiometadata.viren070.me/stremio/manifest.json"
+    <<: *stremio-addon-check
+
+  # ==========================================
+  # GROUP: StremThru Instances
+  # ==========================================
+  - name: StremThru (ElfHosted)
+    group: 05. StremThru Instances
+    url: "https://stremthru.elfhosted.com/stremio/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: StremThru (MidnightIgnite)
+    group: 05. StremThru Instances
+    url: "https://stremthrufortheweebs.midnightignite.me/stremio/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: StremThru (Nhyira)
+    group: 05. StremThru Instances
+    url: "https://stremthrufortheweak.nhyira.dev/stremio/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: StremThru (13377001)
+    group: 05. StremThru Instances
+    url: "https://stremthru.13377001.xyz/stremio/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: StremThru (Kuu)
+    group: 05. StremThru Instances
+    url: "https://stremthru.stremio.ru/stremio/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: StremThru (ATBP)
+    group: 05. StremThru Instances
+    url: "https://stremthru.atbphosting.com/stremio/manifest.json"
+    <<: *stremio-addon-check
+
+  # ==========================================
+  # GROUP: MediaFusion Instances
+  # ==========================================
+  - name: MediaFusion (ElfHosted)
+    group: 06. MediaFusion Instances
+    url: "https://mediafusion.elfhosted.com/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: MediaFusion (MidnightIgnite)
+    group: 06. MediaFusion Instances
+    url: "https://mediafusionfortheweebs.midnightignite.me/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: MediaFusion (Kuu)
+    group: 06. MediaFusion Instances
+    url: "https://mediafusion.stremio.ru/manifest.json"
+    <<: *stremio-addon-check
+
+  # ==========================================
+  # GROUP: Comet Instances
+  # ==========================================
+  - name: Comet (ElfHosted)
+    group: 07. Comet Instances
+    url: "https://comet.elfhosted.com/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: Comet (MidnightIgnite)
+    group: 07. Comet Instances
+    url: "https://cometfortheweebs.midnightignite.me/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: Comet (Goldy)
+    group: 07. Comet Instances
+    url: "https://comet.feels.legal/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: Comet (Kuu)
+    group: 07. Comet Instances
+    url: "https://comet.stremio.ru/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: Comet (Nhyira)
+    group: 07. Comet Instances
+    url: "https://cometfortheweak.nhyira.dev/manifest.json"
+    <<: *stremio-addon-check

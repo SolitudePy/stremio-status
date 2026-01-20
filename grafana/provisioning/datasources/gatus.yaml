@@ -1,0 +1,16 @@
+apiVersion: 1
+
+datasources:
+  - name: GatusDB
+    type: postgres
+    uid: "P51658C9617260799" # Fixed UID to match the Dashboard JSON
+    access: proxy
+    url: postgres:5432
+    user: gatus
+    secureJsonData:
+      password: ${DB_PASSWORD}
+    jsonData:
+      database: gatus
+      sslmode: "disable" # Internal network, safe to disable
+    isDefault: true
+    editable: false
