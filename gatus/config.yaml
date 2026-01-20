@@ -14,16 +14,12 @@ anchors:
           thresholds: [200, 400, 750, 1200, 2000] # Relaxed thresholds
     alerts:
       - type: discord
-        enabled: ${DISCORD_WEBHOOK_ENABLED:-false}
+        enabled: true
         description: "Health check failed"
         send-on-resolved: true
 
-alerting:
-  discord:
-    webhook-url: ${DISCORD_WEBHOOK_URL}
-
   # ==========================================
-  # Universal Stremio Addon Validator
+  # Universal Stremio Addon Validator using WARP Proxy
   # Checks if the response is a valid Stremio Manifest (has id, version, resources)
   # ==========================================
   stremio-addon-check: &stremio-addon-check
@@ -34,6 +30,17 @@ alerting:
       - "has([BODY].id) == true"
       - "has([BODY].version) == true"
       - "has([BODY].resources) == true"
+    client:
+      proxy-url: "${WARP_PROXY_URL}"
+  
+  # ==========================================
+  # Universal Stremio Addon Validator using Proxy
+  # Checks if the response is a valid Stremio Manifest (has id, version, resources)
+  # ==========================================
+  stremio-addon-proxy-check: &stremio-addon-proxy-check
+    <<: *stremio-addon-check
+    client:
+      proxy-url: "${PROXY_URL}"
 
 storage:
   type: postgres
@@ -58,9 +65,7 @@ endpoints:
   - name: "! Torrentio"
     group: 01. General Scrapers
     url: "https://torrentio.strem.fun/manifest.json"
-    client:
-      proxy-url: "${PROXY_URL}"
-    <<: *stremio-addon-check
+    <<: *stremio-addon-proxy-check
 
   - name: Jackettio (ElfHosted)
     group: 01. General Scrapers
@@ -98,9 +103,7 @@ endpoints:
   - name: Anime Kitsu
     group: 02. Metadata & Catalogs
     url: "https://anime-kitsu.strem.fun/manifest.json"
-    client:
-      proxy-url: "${PROXY_URL}"
-    <<: *stremio-addon-check
+    <<: *stremio-addon-proxy-check
 
   - name: Streaming Catalogs
     group: 02. Metadata & Catalogs

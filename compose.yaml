@@ -7,12 +7,13 @@ services:
       - .env
     ports:
       - "8081:8080"
+    depends_on:
+      - warp
+      - postgres
     environment:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
     volumes:
       - ./gatus/config.yaml:/config/config.yaml
-    networks:
-      - stremio_status_net
 
   postgres:
     image: postgres:16-alpine
@@ -24,8 +25,6 @@ services:
       - POSTGRES_DB=gatus
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    networks:
-      - stremio_status_net
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U gatus"]
       interval: 10s
@@ -66,8 +65,6 @@ services:
       - GF_UNIFIED_ALERTING_ENABLED=false
       - GF_ALERTING_ENABLED=false
       - DB_PASSWORD=${DB_PASSWORD}
-    networks:
-      - stremio_status_net
     healthcheck:
       test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000/api/health"]
       interval: 30s
@@ -75,9 +72,36 @@ services:
       retries: 3
       start_period: 10s
 
+  warp:
+    image: caomingjun/warp
+    container_name: warp
+    restart: always
+    # add removed rule back (https://github.com/opencontainers/runc/pull/3468)
+    device_cgroup_rules:
+      - 'c 10:200 rwm'
+    ports:
+      - "1080:1080"
+    environment:
+      - WARP_SLEEP=2
+      # - WARP_LICENSE_KEY= # optional
+      # - WARP_ENABLE_NAT=1 # enable nat
+    cap_add:
+      # Docker already have them, these are for podman users
+      - MKNOD
+      - AUDIT_WRITE
+      # additional required cap for warp, both for podman and docker
+      - NET_ADMIN
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=0
+      - net.ipv4.conf.all.src_valid_mark=1
+      # uncomment for nat
+      # - net.ipv4.ip_forward=1
+      # - net.ipv6.conf.all.forwarding=1
+      # - net.ipv6.conf.all.accept_ra=2
+    volumes:
+      - warp_data:/var/lib/cloudflare-warp
+
 volumes:
   postgres_data:
   grafana_data:
-
-networks:
-  stremio_status_net:
+  warp_data:
