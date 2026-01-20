@@ -98,6 +98,8 @@ endpoints:
   - name: Anime Kitsu
     group: 02. Metadata & Catalogs
     url: "https://anime-kitsu.strem.fun/manifest.json"
+    client:
+      proxy-url: "${PROXY_URL}"
     <<: *stremio-addon-check
 
   - name: Streaming Catalogs
