@@ -14,9 +14,13 @@ anchors:
           thresholds: [200, 400, 750, 1200, 2000] # Relaxed thresholds
     alerts:
       - type: discord
-        enabled: true
+        enabled: ${DISCORD_WEBHOOK_ENABLED:-false}
         description: "Health check failed"
         send-on-resolved: true
+
+alerting:
+  discord:
+    webhook-url: ${DISCORD_WEBHOOK_URL}
 
   # ==========================================
   # Universal Stremio Addon Validator
