@@ -274,8 +274,3 @@ endpoints:
     group: 07. Comet Instances
     url: "https://comet.stremio.ru/manifest.json"
     <<: *stremio-addon-check
-
-  - name: Comet (Nhyira)
-    group: 07. Comet Instances
-    url: "https://cometfortheweak.nhyira.dev/manifest.json"
-    <<: *stremio-addon-check
