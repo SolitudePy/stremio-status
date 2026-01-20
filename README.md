@@ -15,3 +15,6 @@ cp .env.example .env
 docker compose up -d
 Access through localhost or your reverse-proxy setup (e.g Traefik)
 ```
+
+> Latency Disclaimer: High response times are sometimes due to the proxy routing required for certain addons. This does not necessarily reflect the performance of the addon when used directly (for best results self-host).
+
