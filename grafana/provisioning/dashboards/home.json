@@ -606,7 +606,7 @@
     "hidden": true
   },
   "timezone": "browser",
-  "title": "Community Status Home",
+  "title": "Stremio Status Analytics Dashboard",
   "uid": "home-dashboard",
   "version": 1,
   "weekStart": ""
