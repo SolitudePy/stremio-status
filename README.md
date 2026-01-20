@@ -1,7 +1,7 @@
 # Stremio Status
 --------------------------------
 
-Access status page at status.stremio-status.com, analytics are at stats.stremio-status.com or through the status page link.
+Access status page at https://status.stremio-status.com, analytics are at https://stats.stremio-status.com or through the status page link.
 
 
 ## Self-host with Docker
