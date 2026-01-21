@@ -24,7 +24,7 @@ docker compose up -d
 | `PROXY_URL` | Optional proxy URL to bypass network blocks | (Empty) | No |
 | `WARP_PROXY_URL` | Cloudflare WARP proxy for healthchecks (leave empty to use host IP) | (Empty) | No |
 | `DISCORD_WEBHOOK_ENABLED` | Set to `true` to enable Discord notifications | `false` | No |
-| `DISCORD_WEBHOOK` | The Discord Webhook URL for alerts | (Empty) | No |
+| `DISCORD_WEBHOOK_URL` | The Discord Webhook URL for alerts | (Empty) | No |
 
 > Latency Disclaimer: High response times are sometimes due to the proxy routing required for certain addons. This does not necessarily reflect the performance of the addon when used directly (for best results self-host).
 
