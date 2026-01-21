@@ -16,7 +16,6 @@ anchors:
       - type: discord
         enabled: ${DISCORD_WEBHOOK_ENABLED:false}
         description: "Health check failed"
-        send-on-resolved: true
 
   # ==========================================
   # Universal Stremio Addon Validator using WARP Proxy
@@ -45,6 +44,11 @@ anchors:
 alerting:
   discord:
     webhook-url: "${DISCORD_WEBHOOK_URL}"
+  default-alert:
+    failure-threshold: 1
+    success-threshold: 1
+    send-on-resolved: true
+
 
 storage:
   type: postgres
