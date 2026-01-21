@@ -1,5 +1,6 @@
 # Stremio Status
 --------------------------------
+**Status Page & Analytics of popular Stremio Addons.**
 
 Access status page at https://status.stremio-status.com, Grafana analytics are at [https://stats.stremio-status.com](https://stats.stremio-status.com/d/home-dashboard/community-status-home?kiosk=true&orgId=1&from=now-24h&to=now&timezone=browser&refresh=1m).
 
