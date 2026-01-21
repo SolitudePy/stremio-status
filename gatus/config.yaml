@@ -44,7 +44,7 @@ anchors:
 
 alerting:
   discord:
-    webhook-url: "${DISCORD_WEBHOOK}"
+    webhook-url: "${DISCORD_WEBHOOK_URL}"
 
 storage:
   type: postgres
