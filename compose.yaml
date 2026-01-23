@@ -8,8 +8,10 @@ services:
     ports:
       - "8081:8080"
     depends_on:
-      - warp
-      - postgres
+      warp:
+        condition: service_healthy
+      postgres: 
+        condition: service_healthy
     environment:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
     volumes:
@@ -100,6 +102,13 @@ services:
       # - net.ipv6.conf.all.accept_ra=2
     volumes:
       - warp_data:/var/lib/cloudflare-warp
+    healthcheck:
+      # This forces curl to use the local proxy to hit a public Cloudflare API
+      test: ["CMD", "curl", "-f", "-x", "http://localhost:1080", "https://www.cloudflare.com/cdn-cgi/trace"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
 volumes:
   postgres_data:
