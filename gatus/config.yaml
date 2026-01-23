@@ -108,7 +108,7 @@ endpoints:
     url: "https://5a0d1888fa64-orion.baby-beamup.club/manifest.json"
     <<: *stremio-addon-check
   
-  - Name: Sootio (MidnightIgnite)
+  - name: Sootio (MidnightIgnite)
     group: 01. General Scrapers
     url: "https://sootiofortheweebs.midnightignite.me/manifest.json"
     <<: *stremio-addon-check
