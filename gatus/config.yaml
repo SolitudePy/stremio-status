@@ -102,6 +102,16 @@ endpoints:
     group: 01. General Scrapers
     url: "https://848b3516657c-usatv.baby-beamup.club/manifest.json"
     <<: *stremio-addon-check
+  
+  - name: Orion
+    group: 01. General Scrapers
+    url: "https://5a0d1888fa64-orion.baby-beamup.club/manifest.json"
+    <<: *stremio-addon-check
+  
+  - Name: Sootio (MidnightIgnite)
+    group: 01. General Scrapers
+    url: "https://sootiofortheweebs.midnightignite.me/manifest.json"
+    <<: *stremio-addon-check
 
   # ==========================================
   # GROUP: Metadata & Catalogs
