@@ -54,10 +54,17 @@ storage:
   caching: true
 
 ui:
-  title: "Stremio Addons Status"
+  title: "Stremio Status"
   default-sort-by: group
   header: "Stremio Status"
-  description: "Status page of popular Stremio addons."
+  dashboard-heading: "Stremio Addons & Services Status"
+  dashboard-subheading: "Health monitoring for Stremio addons & services"
+  custom-css: |
+    #social {
+      display: none !important;
+    }
+  link: "https://github.com/SolitudePy/stremio-status"
+  description: "Status page of popular Stremio addons & services."
   buttons:
     - name: "⭐ Star on GitHub"
       link: "https://github.com/SolitudePy/stremio-status"
