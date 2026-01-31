@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stremio Status - Configure</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #e4e4e7;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .header p {
+            color: #a1a1aa;
+            font-size: 0.95rem;
+        }
+
+        .github-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 16px;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #e4e4e7;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .github-btn img {
+            filter: invert(0.9); /* Make black icon light grey */
+        }
+
+        .github-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #fff;
+        }
+
+        .button-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .btn-small {
+            padding: 8px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            color: #e4e4e7;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .btn-small:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .addon-list {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 8px;
+        }
+
+        .addon-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .addon-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .addon-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 12px;
+            accent-color: #7c3aed;
+            cursor: pointer;
+        }
+
+        .addon-name {
+            flex: 1;
+            font-size: 0.95rem;
+        }
+
+        .addon-group {
+            font-size: 0.8rem;
+            color: #71717a;
+            margin-left: 8px;
+        }
+
+        .option-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+        }
+
+        .option-label {
+            font-size: 0.95rem;
+        }
+
+        .toggle {
+            position: relative;
+            width: 48px;
+            height: 26px;
+        }
+
+        .toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
+            border-radius: 26px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+
+        .toggle input:checked + .toggle-slider {
+            background-color: #7c3aed;
+        }
+
+        .toggle input:checked + .toggle-slider:before {
+            transform: translateX(22px);
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #e4e4e7;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #a1a1aa;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top-color: #7c3aed;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 16px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #22c55e;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #71717a;
+        }
+
+        @media (max-width: 480px) {
+            .actions {
+                flex-direction: column;
+            }
+            
+            .button-row {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Stremio Status</h1>
+            <p>Configure your addon</p>
+            <a href="https://github.com/SolitudePy/stremio-status" target="_blank" class="github-btn">
+                <img src="https://cdn.jsdelivr.net/npm/simple-icons@v14/icons/github.svg" height="20" width="20" alt="GitHub">
+                <span>View on GitHub</span>
+            </a>
+        </div>
+
+        <div class="card">
+            <div class="card-title">Select Addons to Monitor</div>
+            <div class="button-row">
+                <button class="btn-small" onclick="selectAll()">Select All</button>
+                <button class="btn-small" onclick="selectNone()">Select None</button>
+            </div>
+            <div id="addon-list" class="addon-list">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <div>Loading addons...</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">Options</div>
+            <div class="option-row">
+                <span class="option-label">Show only DOWN addons</span>
+                <label class="toggle">
+                    <input type="checkbox" id="only-down" checked>
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button class="btn btn-primary" onclick="installAddon()">Install Addon</button>
+            <button class="btn btn-secondary" onclick="copyUrl()">Copy URL</button>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">URL copied to clipboard!</div>
+
+    <script>
+        let endpoints = [];
+
+        // Fetch available endpoints on page load
+        async function loadEndpoints() {
+            try {
+                const response = await fetch('/api/endpoints');
+                const data = await response.json();
+                endpoints = data.endpoints || [];
+                renderAddonList();
+            } catch (error) {
+                console.error('Failed to load endpoints:', error);
+                document.getElementById('addon-list').innerHTML = `
+                    <div class="empty-state">Failed to load addons. Please refresh.</div>
+                `;
+            }
+        }
+
+        function renderAddonList() {
+            const container = document.getElementById('addon-list');
+            
+            if (endpoints.length === 0) {
+                container.innerHTML = '<div class="empty-state">No addons found</div>';
+                return;
+            }
+
+            container.innerHTML = endpoints.map(ep => `
+                <label class="addon-item">
+                    <input type="checkbox" value="${ep.key}" checked>
+                    <span class="addon-name">${ep.name}</span>
+                    <span class="addon-group">(${ep.group})</span>
+                </label>
+            `).join('');
+        }
+
+        function selectAll() {
+            document.querySelectorAll('#addon-list input[type="checkbox"]').forEach(cb => {
+                cb.checked = true;
+            });
+        }
+
+        function selectNone() {
+            document.querySelectorAll('#addon-list input[type="checkbox"]').forEach(cb => {
+                cb.checked = false;
+            });
+        }
+
+        function getConfig() {
+            const checkboxes = document.querySelectorAll('#addon-list input[type="checkbox"]');
+            const selectedAddons = Array.from(checkboxes)
+                .filter(cb => cb.checked)
+                .map(cb => cb.value);
+            
+            const onlyDown = document.getElementById('only-down').checked;
+            
+            // Build config object
+            const config = {};
+            
+            // If all addons selected, omit 'addons' field (means "all")
+            // If some or none selected, include the list
+            if (selectedAddons.length < endpoints.length) {
+                config.addons = selectedAddons;
+            }
+            
+            // Only include onlyDown when false (unchecked), since true is the default
+            if (!onlyDown) {
+                config.onlyDown = false;
+            }
+            
+            return config;
+        }
+
+        function encodeConfig(config) {
+            const json = JSON.stringify(config);
+            // Use btoa for base64 encoding, handle unicode
+            const base64 = btoa(unescape(encodeURIComponent(json)));
+            // Make URL safe
+            return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+        }
+
+        function getManifestUrl() {
+            const config = getConfig();
+            const baseUrl = window.location.origin;
+            
+            // If config is empty (all defaults), use simple manifest URL
+            if (Object.keys(config).length === 0) {
+                return `${baseUrl}/manifest.json`;
+            }
+            
+            const token = encodeConfig(config);
+            return `${baseUrl}/${token}/manifest.json`;
+        }
+
+        function installAddon() {
+            const manifestUrl = getManifestUrl();
+            // Convert to stremio:// protocol
+            const stremioUrl = manifestUrl.replace(/^https?:\/\//, 'stremio://');
+            window.location.href = stremioUrl;
+        }
+
+        function copyUrl() {
+            const url = getManifestUrl();
+            navigator.clipboard.writeText(url).then(() => {
+                showToast('URL copied to clipboard!');
+            }).catch(() => {
+                // Fallback for older browsers
+                const textarea = document.createElement('textarea');
+                textarea.value = url;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                showToast('URL copied to clipboard!');
+            });
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+
+        // Initialize
+        loadEndpoints();
+    </script>
+</body>
+</html>
