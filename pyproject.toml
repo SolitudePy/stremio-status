@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 name = "stremio-status"
 version = "0.1.0"
 description = "Stremio Status (a Stremio addon) uses health data to notify users of stremio addons & services status."
-requires-python = ">=3.13"
+requires-python = ">=3.12"
 license = "GPL-3.0-only"
 authors = [{ name = "SolitudePy" }]
 dependencies = [
