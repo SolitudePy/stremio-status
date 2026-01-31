@@ -56,7 +56,6 @@ def run() -> None:
         host=settings.host,
         port=settings.port,
         log_level=settings.log_level,
-        reload=True,
     )
 
 
