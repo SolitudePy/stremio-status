@@ -1,0 +1,35 @@
+[build-system]
+requires = ["hatchling>=1.18"]
+build-backend = "hatchling.build"
+
+[project]
+name = "stremio-status"
+version = "0.1.0"
+description = "Stremio Status (a Stremio addon) uses health data to notify users of stremio addons & services status."
+requires-python = ">=3.13"
+license = "GPL-3.0-only"
+authors = [{ name = "SolitudePy" }]
+dependencies = [
+  "fastapi>=0.115.0",
+  "uvicorn[standard]>=0.34.0",
+  "httpx>=0.28.0",
+  "pydantic-settings>=2.7.0",
+  "pydantic>=2.10.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "ruff",
+  "httpx[cli]",
+  "mypy",
+]
+
+[tool.mypy]
+strict = true
+ignore_missing_imports = true
+
+[project.scripts]
+stremio-status = "stremio_status.main:run"
+
+[tool.hatch.build]
+packages = ["stremio_status"]

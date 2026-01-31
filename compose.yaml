@@ -1,23 +1,38 @@
+# Stremio Status - Docker Compose with Profiles
+#
+# Usage:
+#   Full stack (status-page + addon):  docker compose --profile full up -d
+#   Addon only:                        docker compose --profile addon up -d
+#   Status page only:                  docker compose --profile status up -d
+#
+# Or set COMPOSE_PROFILES in .env (default: full)
+
 services:
+  # ===================
+  # Status Page Services
+  # ===================
+
   gatus:
+    profiles: ["status", "full"]
     image: twinproduction/gatus:latest
     container_name: stremio-gatus
     restart: always
     env_file:
       - .env
     ports:
-      - "8081:8080"
+      - "${GATUS_PORT:-8081}:8080"
     depends_on:
       warp:
         condition: service_healthy
-      postgres: 
+      postgres:
         condition: service_healthy
     environment:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
     volumes:
-      - ./gatus/config.yaml:/config/config.yaml
+      - ./status-page/gatus/config.yaml:/config/config.yaml
 
   postgres:
+    profiles: ["status", "full"]
     image: postgres:16-alpine
     container_name: stremio-gatus-postgres
     restart: always
@@ -34,16 +49,17 @@ services:
       retries: 5
 
   grafana:
+    profiles: ["status", "full"]
     image: grafana/grafana-oss:latest
     container_name: stremio-gatus-grafana
     restart: always
     ports:
-      - "3001:3000"
+      - "${GRAFANA_PORT:-3001}:3000"
     depends_on:
       - postgres
     volumes:
       - grafana_data:/var/lib/grafana
-      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./status-page/grafana/provisioning:/etc/grafana/provisioning
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
@@ -75,40 +91,54 @@ services:
       start_period: 10s
 
   warp:
+    profiles: ["status", "full"]
     image: caomingjun/warp
     container_name: warp
     restart: always
-    # add removed rule back (https://github.com/opencontainers/runc/pull/3468)
     device_cgroup_rules:
       - 'c 10:200 rwm'
     ports:
-      - "1080:1080"
+      - "${WARP_PORT:-1080}:1080"
     environment:
       - WARP_SLEEP=2
-      # - WARP_LICENSE_KEY= # optional
-      # - WARP_ENABLE_NAT=1 # enable nat
     cap_add:
-      # Docker already have them, these are for podman users
       - MKNOD
       - AUDIT_WRITE
-      # additional required cap for warp, both for podman and docker
       - NET_ADMIN
     sysctls:
       - net.ipv6.conf.all.disable_ipv6=0
       - net.ipv4.conf.all.src_valid_mark=1
-      # uncomment for nat
-      # - net.ipv4.ip_forward=1
-      # - net.ipv6.conf.all.forwarding=1
-      # - net.ipv6.conf.all.accept_ra=2
     volumes:
       - warp_data:/var/lib/cloudflare-warp
     healthcheck:
-      # This forces curl to use the local proxy to hit a public Cloudflare API
       test: ["CMD", "curl", "-f", "-x", "http://localhost:1080", "https://www.cloudflare.com/cdn-cgi/trace"]
       interval: 10s
       timeout: 5s
       retries: 5
       start_period: 10s
+
+  # ===================
+  # Addon Service
+  # ===================
+
+  stremio-status:
+    profiles: ["addon", "full"]
+    build: .
+    container_name: stremio-status
+    restart: always
+    ports:
+      - "${ADDON_PORT:-7000}:${ADDON_PORT:-7000}"
+    environment:
+      - ADDON_HOST=0.0.0.0
+      - ADDON_PORT=${ADDON_PORT:-7000}
+      - ADDON_HEALTH_BASE_URL=${ADDON_HEALTH_BASE_URL:-http://gatus:8080}
+      - ADDON_PUBLIC_BASE_URL=${ADDON_PUBLIC_BASE_URL:-http://localhost:7000}
+      - ADDON_CACHE_TTL_SECONDS=${ADDON_CACHE_TTL_SECONDS:-45}
+      - ADDON_LOG_LEVEL=${ADDON_LOG_LEVEL:-info}
+    depends_on:
+      gatus:
+        condition: service_started
+        required: false
 
 volumes:
   postgres_data:

@@ -9,6 +9,21 @@ grafana_data/
 # IDE files
 .vscode/
 .idea/
+*.code-workspace
+
+# Python
+__pycache__/
+.venv/
+.ruff_cache
+.mypy_cache
+uv.lock
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+pip-wheel-metadata/
 
 # OS files
 .DS_Store

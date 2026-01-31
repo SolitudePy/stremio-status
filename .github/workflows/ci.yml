@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v1
+      
+      - name: Install dependencies
+        run: uv sync
+        
+      - name: Lint (Ruff)
+        run: uv run ruff check .
+        
+      - name: Type Check (Mypy)
+        run: uv run mypy .
+        
+      - name: Verify Docker Build
+        run: docker build .
