@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.1](https://github.com/SolitudePy/stremio-status/compare/v1.0.0...v1.0.1) (2026-01-31)
+
+
+### Bug Fixes
+
+* remove reload=True in uvicorn.run ([c1c77de](https://github.com/SolitudePy/stremio-status/commit/c1c77de2427fcca0847b053cb43fa808cabeef03))
+
+
+### Documentation
+
+* update README.md ([b94d487](https://github.com/SolitudePy/stremio-status/commit/b94d487924e7c08e39658708a8d994c6ff6c5847))
+
 ## [1.0.0](https://github.com/SolitudePy/stremio-status/compare/v0.1.0...v1.0.0) (2026-01-31)
 
 
