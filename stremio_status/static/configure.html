@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stremio Status - Configure</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <style>
         * {
             box-sizing: border-box;
@@ -27,6 +28,15 @@
         .header {
             text-align: center;
             margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header-logo {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 16px;
         }
 
         .header h1 {
@@ -293,6 +303,7 @@
 <body>
     <div class="container">
         <div class="header">
+            <img src="/static/logo.svg" alt="Stremio Status Logo" class="header-logo">
             <h1>Stremio Status</h1>
             <p>Configure your addon</p>
             <a href="https://github.com/SolitudePy/stremio-status" target="_blank" class="github-btn">

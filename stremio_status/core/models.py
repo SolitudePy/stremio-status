@@ -24,6 +24,7 @@ class StremioManifest(BaseModel):
     version: str
     name: str
     description: str
+    logo: Optional[str] = None
     resources: list[str]
     types: list[str]
     catalogs: list[dict[str, str]]
