@@ -44,4 +44,8 @@ async def down_poster() -> FileResponse:
 @static_router.get("/favicon.ico", include_in_schema=False)
 async def favicon() -> FileResponse:
     file_path = STATIC_DIR / "favicon.ico"
+    if not file_path.exists():
+        logger.warning(f"Favicon missing: {file_path}")
+        raise HTTPException(status_code=404, detail="Not found")
+
     return FileResponse(path=file_path, media_type="image/x-icon")
