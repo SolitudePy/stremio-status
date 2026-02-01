@@ -6,6 +6,7 @@ from typing import Any
 from fastapi import APIRouter, HTTPException
 
 from stremio_status.core.config import get_settings
+from stremio_status.core.constants import ID_PREFIX
 from stremio_status.core.models import Meta, StremioManifest
 from stremio_status.core.user_config import UserConfig, decode_config
 from stremio_status.services import status_service
@@ -30,7 +31,15 @@ def _manifest_response() -> StremioManifest:
         name="Stremio Status",
         description="Shows health status of stremio addons & services",
         logo=f"{base_url}/static/logo.png",
-        resources=["catalog", "meta", "stream"],
+        resources=[
+            "catalog",
+            {
+                "name": "meta",
+                "types": ["tv", "movie", "series"],
+                "idPrefixes": [ID_PREFIX],
+            },
+            "stream",
+        ],
         types=["tv", "movie", "series"],
         catalogs=[{"type": "other", "id": "addon-status", "name": "Addon Status"}],
         behaviorHints={"configurable": True, "configurationRequired": False},
