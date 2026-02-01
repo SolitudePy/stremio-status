@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/SolitudePy/stremio-status/compare/v1.0.1...v1.1.0) (2026-02-01)
+
+
+### Features
+
+* add logo to website/stremio manifest ([1f30978](https://github.com/SolitudePy/stremio-status/commit/1f3097873931029dd586e96d4effe44d884287e8))
+
 ## [1.0.1](https://github.com/SolitudePy/stremio-status/compare/v1.0.0...v1.0.1) (2026-01-31)
 
 
