@@ -25,9 +25,10 @@ class StremioManifest(BaseModel):
     name: str
     description: str
     logo: Optional[str] = None
-    resources: list[str]
+    resources: list[str | dict[str, Any]]
     types: list[str]
     catalogs: list[dict[str, str]]
+    idPrefixes: Optional[list[str]] = None
     behaviorHints: dict[str, Any] = Field(default_factory=dict)
 
 
