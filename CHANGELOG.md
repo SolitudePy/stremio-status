@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/SolitudePy/stremio-status/compare/v1.1.0...v1.1.1) (2026-02-01)
+
+
+### Bug Fixes
+
+* use custom idprefix for meta to prevent 404 errors  ([90ab0bf](https://github.com/SolitudePy/stremio-status/commit/90ab0bf5c647f1074a05551609d847f1d1d7e0cc))
+
 ## [1.1.0](https://github.com/SolitudePy/stremio-status/compare/v1.0.1...v1.1.0) (2026-02-01)
 
 
