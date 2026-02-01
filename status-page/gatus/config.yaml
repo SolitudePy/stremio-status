@@ -70,6 +70,8 @@ ui:
       link: "https://github.com/SolitudePy/stremio-status"
     - name: "📈 Grafana Analytics"
       link: "https://stats.${DOMAIN}/d/home-dashboard?kiosk"
+    - name: "🧩 Configure Addon"
+      link: "https://addon.${DOMAIN}"
 
 endpoints:
   # ==========================================
