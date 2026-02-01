@@ -11,9 +11,6 @@ logger = logging.getLogger(__name__)
 
 static_router = APIRouter()
 
-# Specific posters to cache aggressively
-POSTER_FILES = {"up.png", "down.png"}
-
 # 1 year in seconds
 CACHE_MAX_AGE = 31536000
 
