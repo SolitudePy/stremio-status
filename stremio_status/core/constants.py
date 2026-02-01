@@ -7,3 +7,6 @@ PACKAGE_DIR = Path(__file__).parent.parent
 
 # Static files directory
 STATIC_DIR = PACKAGE_DIR / "static"
+
+# ID prefix for Stremio content IDs (ensures uniqueness and filters out IMDb requests)
+ID_PREFIX = "stremio-status:"

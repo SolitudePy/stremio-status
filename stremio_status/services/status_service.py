@@ -7,6 +7,7 @@ import logging
 from stremio_status.clients.gatus_client import get_client
 from stremio_status.core.cache import TTLCache
 from stremio_status.core.config import get_settings
+from stremio_status.core.constants import ID_PREFIX
 from stremio_status.core.models import CatalogItem, GatusEndpoint, Meta, Stream
 from stremio_status.core.user_config import UserConfig
 from stremio_status.utils import ui
@@ -100,7 +101,7 @@ async def build_catalog(config: UserConfig) -> list[CatalogItem]:
         poster = ui.status_poster_url(ep.healthy)
         items.append(
             CatalogItem(
-                id=ep.key,
+                id=f"{ID_PREFIX}{ep.key}",
                 type="tv",
                 name=f"{emoji} {ep.name}",
                 poster=poster,
@@ -119,12 +120,13 @@ async def build_meta(addon_id: str, config: UserConfig) -> Meta | None:
     endpoints = await get_status_snapshot()
     filtered = filter_by_addon_selection(endpoints, config)
 
+    clean_id = addon_id.removeprefix(ID_PREFIX)
     for ep in filtered:
-        if ep.key == addon_id or ep.name == addon_id:
+        if ep.key == clean_id or ep.name == clean_id:
             emoji = ui.status_emoji(ep.healthy)
             poster = ui.status_poster_url(ep.healthy)
             return Meta(
-                id=ep.key,
+                id=f"{ID_PREFIX}{ep.key}",
                 type="tv",
                 name=f"{emoji} {ep.name}",
                 poster=poster,
