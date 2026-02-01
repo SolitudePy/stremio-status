@@ -1,14 +1,35 @@
-# Stremio Status
-A Stremio addon that consolidates the status of popular services directly inside the app, alongside a public status page & analytics.
+<p align="center">
+  <img src="assets/logo.svg" alt="Stremio Status Logo" width="160">
+  <h1 align="center">Stremio Status</h1>
+  <p align="center">Unified status page, health metrics, and monitoring addon for Stremio services</p>
+</p>
 
+---
 
-- Status-page: https://status.stremio-status.com, 
-- Grafana analytics: [https://stats.stremio-status.com](https://stats.stremio-status.com/d/home-dashboard/community-status-home?kiosk=true&orgId=1&from=now-24h&to=now&timezone=browser&refresh=1m).
+| Service | Link |
+| :--- | :--- |
+| **Status Page** | [status.stremio-status.com](https://status.stremio-status.com) |
+| **Grafana Analytics** | [stats.stremio-status.com](https://stats.stremio-status.com/d/home-dashboard/community-status-home?kiosk=true&orgId=1&from=now-24h&to=now&timezone=browser&refresh=1m) |
+| **Addon Config** | [addon.stremio-status.com](https://addon.stremio-status.com) |
 
+---
 
-![Status-page Grouped](assets/status-page-group.png)
+<table border="0">
+  <tr>
+    <td align="center" valign="top">
+      <img src="assets/status-page-name.png" style="max-width: 100%; height: auto;">
+    </td>
+    <td align="center" valign="top">
+      <img src="assets/addon-configure.png" style="max-width: 100%; height: auto;">
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <img src="assets/grafana-dashboard.png" style="max-width: 100%; height: auto;">
+    </td>
+  </tr>
+</table>
 
-![Grafana Dashboard](assets/grafana-dashboard.png)
 
 ## Self-host with Docker
 ```
