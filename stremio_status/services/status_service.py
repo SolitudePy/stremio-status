@@ -153,7 +153,7 @@ async def build_streams(config: UserConfig) -> list[Stream]:
             Stream(
                 name=f"{emoji} {ep.name}",
                 description=ui.format_stream_desc(ep),
-                url=f"{settings.health_base_url}",
+                url=f"{settings.public_base_url}",
                 behaviorHints={"notWebReady": True},
             )
         )
