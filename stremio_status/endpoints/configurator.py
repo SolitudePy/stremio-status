@@ -24,6 +24,20 @@ async def configure() -> FileResponse:
     )
 
 
+@configurator_router.get("/{config_token}/configure")
+async def configure_with_config(config_token: str) -> RedirectResponse:
+    """Redirect to configurator with config token as query parameter.
+
+    Frontend will decode the base64 token client-side.
+    """
+    logger.debug(
+        f"Redirecting to configurator with config token: {config_token[:20]}..."
+    )
+    return RedirectResponse(
+        url=f"/stremio/configure?config={config_token}", status_code=302
+    )
+
+
 @configurator_router.get("/configure")
 async def configure_redirect() -> RedirectResponse:
     """Redirect to main configurator route."""
