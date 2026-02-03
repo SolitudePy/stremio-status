@@ -145,6 +145,11 @@ endpoints:
     url: "https://aiolists.elfhosted.com/manifest.json"
     <<: *stremio-addon-check
 
+  - name: MyTrakt (ElfHosted)
+    group: 02. Metadata & Catalogs
+    url: "https://mytrakt.elfhosted.com/manifest.json"
+    <<: *stremio-addon-check
+
   # ==========================================
   # GROUP: AIOStreams Instances
   # ==========================================
