@@ -28,8 +28,8 @@ class StremioManifest(BaseModel):
     resources: list[str | dict[str, Any]]
     types: list[str]
     catalogs: list[dict[str, str]]
-    idPrefixes: Optional[list[str]] = None
     behaviorHints: dict[str, Any] = Field(default_factory=dict)
+    stremioAddonsConfig: Optional[dict[str, str]] = None
 
 
 class CatalogItem(BaseModel):
