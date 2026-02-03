@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.2.0](https://github.com/SolitudePy/stremio-status/compare/v1.1.1...v1.2.0) (2026-02-03)
+
+
+### Features
+
+* add healthcheck api route + Dockerfile HEALTHCHECK ([aea1745](https://github.com/SolitudePy/stremio-status/commit/aea174547a6fc46769759e6bab989f3075ea0059))
+
+
+### Bug Fixes
+
+* stream card public url instead of health url ([56db369](https://github.com/SolitudePy/stremio-status/commit/56db36936b2f8f14e9d893efdc2f4bb3c826f8c6))
+* stremio configure button fix (apply existing config) ([7ff1ae0](https://github.com/SolitudePy/stremio-status/commit/7ff1ae0a00d2b2d265c91b47a860140314aea892))
+
 ## [1.1.1](https://github.com/SolitudePy/stremio-status/compare/v1.1.0...v1.1.1) (2026-02-01)
 
 
