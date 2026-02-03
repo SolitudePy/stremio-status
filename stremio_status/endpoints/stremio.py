@@ -27,7 +27,7 @@ def _manifest_response() -> StremioManifest:
     base_url = str(settings.public_base_url).rstrip("/")
     return StremioManifest(
         id="com.stremio.status",
-        version="0.1.0",
+        version="1.1.1",
         name="Stremio Status",
         description="Shows health status of stremio addons & services",
         logo=f"{base_url}/static/logo.png",
