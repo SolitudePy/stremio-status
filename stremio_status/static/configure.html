@@ -329,7 +329,7 @@
         <div class="card">
             <div class="card-title">Options</div>
             <div class="option-row">
-                <span class="option-label">Show only DOWN addons</span>
+                <span class="option-label">Show only Down addons</span>
                 <label class="toggle">
                     <input type="checkbox" id="only-down" checked>
                     <span class="toggle-slider"></span>
@@ -348,13 +348,37 @@
     <script>
         let endpoints = [];
 
+        const decodeConfigToken = (token) => {
+            const defaultConfig = { addons: null, onlyDown: true };
+            
+            const addPadding = (str) => str + '='.repeat((4 - str.length % 4) % 4);
+            const urlSafeToBase64 = (str) => str.replace(/-/g, '+').replace(/_/g, '/');
+            
+            try {
+                const base64 = urlSafeToBase64(token);
+                const padded = addPadding(base64);
+                const decoded = atob(padded);
+                return JSON.parse(decoded);
+            } catch (error) {
+                console.warn('Failed to decode config token, using defaults:', error);
+                return defaultConfig;
+            }
+        };
+
         // Fetch available endpoints on page load
         async function loadEndpoints() {
             try {
+                const params = new URLSearchParams(window.location.search);
+                const configToken = params.get('config');
+                
+                if (configToken) {
+                    window.EXISTING_CONFIG = decodeConfigToken(configToken);
+                }
                 const response = await fetch('/api/endpoints');
                 const data = await response.json();
                 endpoints = data.endpoints || [];
                 renderAddonList();
+                applyExistingConfig();
             } catch (error) {
                 console.error('Failed to load endpoints:', error);
                 document.getElementById('addon-list').innerHTML = `
@@ -378,6 +402,34 @@
                     <span class="addon-group">(${ep.group})</span>
                 </label>
             `).join('');
+        }
+
+        function applyExistingConfig() {
+            if (!window.EXISTING_CONFIG) {
+                return;
+            }
+
+            const config = window.EXISTING_CONFIG;
+
+            // Handle addon selection
+            // If addons is null/undefined, it means "all addons" - keep all checked
+            // If addons is an array (even empty), select only those specific addons
+            if (config.addons !== undefined && config.addons !== null) {
+                selectNone();
+                config.addons.forEach(addonKey => {
+                    const checkbox = document.querySelector(`#addon-list input[value="${addonKey}"]`);
+                    if (checkbox) {
+                        checkbox.checked = true;
+                    }
+                });
+            }
+
+            // Handle onlyDown toggle
+            // If onlyDown is explicitly set in config, use that value
+            // Otherwise leave default (checked = true)
+            if (config.onlyDown !== undefined) {
+                document.getElementById('only-down').checked = config.onlyDown;
+            }
         }
 
         function selectAll() {
