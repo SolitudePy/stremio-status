@@ -43,6 +43,10 @@ def _manifest_response() -> StremioManifest:
         types=["tv", "movie", "series"],
         catalogs=[{"type": "other", "id": "addon-status", "name": "Addon Status"}],
         behaviorHints={"configurable": True, "configurationRequired": False},
+        stremioAddonsConfig={
+            "issuer": "https://stremio-addons.net",
+            "signature": "eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..n208L4bOMSXM6PAgYvA5HQ.eW-LTeoYEVErUoBWmMiH--dS9TEK5Wdnxs3OwpkC-KrkLJdIEUGU5tyB3HPLekqDfH6JpLFDr75IyftCldbaMHHxuX-Wizg20e2GNTHezQ5zXEhv4E4zgfobObrasHh0.AMlZwRfPTrVeActUxFT6Ng",
+        },
     )
 
 
