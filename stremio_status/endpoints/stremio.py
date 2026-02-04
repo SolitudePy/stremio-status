@@ -21,27 +21,45 @@ VALID_CATALOG_IDS = {"addon-status"}
 VALID_CONTENT_TYPES = {"tv", "movie", "series"}
 
 
-def _manifest_response() -> StremioManifest:
-    """Generate the static addon manifest."""
+def _manifest_response(config: UserConfig) -> StremioManifest:
+    """Generate addon manifest based on user configuration.
+
+    Args:
+        config: User configuration that may hide certain features
+
+    Returns:
+        Configured StremioManifest
+    """
     settings = get_settings()
     base_url = str(settings.public_base_url).rstrip("/")
-    return StremioManifest(
-        id="com.stremio.status",
-        version="1.2.0",
-        name="Stremio Status",
-        description="Shows health status of stremio addons & services",
-        logo=f"{base_url}/static/logo.png",
-        resources=[
-            "catalog",
+
+    resources = []
+    catalogs = []
+
+    if not config.hide_addon_status_catalog:
+        resources.append("catalog")
+        catalogs.append({"type": "other", "id": "addon-status", "name": "Addon Status"})
+
+    resources.extend(
+        [
             {
                 "name": "meta",
                 "types": ["tv", "movie", "series"],
                 "idPrefixes": [ID_PREFIX],
             },
             "stream",
-        ],
+        ]
+    )
+
+    return StremioManifest(
+        id="com.stremio.status",
+        version="1.2.0",
+        name="Stremio Status",
+        description="Shows health status of stremio addons & services",
+        logo=f"{base_url}/static/logo.png",
+        resources=resources,
         types=["tv", "movie", "series"],
-        catalogs=[{"type": "other", "id": "addon-status", "name": "Addon Status"}],
+        catalogs=catalogs,
         behaviorHints={"configurable": True, "configurationRequired": False},
         stremioAddonsConfig={
             "issuer": "https://stremio-addons.net",
@@ -102,7 +120,7 @@ async def _get_streams(
 @stremio_router.get("/manifest.json", response_model=StremioManifest)
 async def manifest() -> StremioManifest:
     """Default manifest endpoint (no configuration)."""
-    return _manifest_response()
+    return _manifest_response(UserConfig())
 
 
 @stremio_router.get("/catalog/{catalog_type}/{catalog_id}.json")
@@ -139,12 +157,11 @@ async def stream(
 async def manifest_configured(config_token: str) -> StremioManifest:
     """Configured manifest endpoint.
 
-    Decodes config to validate it, but returns standard manifest.
-    Fail-safe: Invalid config tokens are ignored.
+    Decodes config and returns manifest based on user configuration.
+    Fail-safe: Invalid config tokens use default config.
     """
-    # Just validate decoding, result ignored for manifest
-    _ = decode_config(config_token)
-    return _manifest_response()
+    config = decode_config(config_token)
+    return _manifest_response(config)
 
 
 @stremio_router.get("/{config_token}/catalog/{catalog_type}/{catalog_id}.json")
