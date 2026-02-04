@@ -53,7 +53,7 @@ def _manifest_response(config: UserConfig) -> StremioManifest:
 
     return StremioManifest(
         id="com.stremio.status",
-        version="1.2.0",
+        version="1.3.0",
         name="Stremio Status",
         description="Shows health status of stremio addons & services",
         logo=f"{base_url}/static/logo.png",
