@@ -23,7 +23,7 @@ services:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_HOST=${POSTGRES_HOST}
     volumes:
-      - ${COMPOSE_PROJECT_DIR:-.}/status-page/gatus/config.yaml:/config/config.yaml
+      - ../status-page/gatus/config.yaml:/config/config.yaml
 
   grafana:
     image: grafana/grafana-oss:latest
