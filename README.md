@@ -33,10 +33,21 @@
 
 ## Self-host with Docker
 ```
+## 1. Clone the repository
 git clone https://github.com/SolitudePy/stremio-status.git
 cd stremio-status
+
+## 2. Edit desired environment variables in .env
 cp .env.example .env
-docker compose up -d
+
+## Option 1: Run full stack
+docker compose up
+
+## Option 2: Run status overview only
+docker compose up --profile status
+
+## Option 3: Run stremio addon only
+docker compose up --profile addon
 ```
 
 ### Environment Variables
