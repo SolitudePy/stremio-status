@@ -1,7 +1,7 @@
 <p align="center">
   <img src="assets/logo.svg" alt="Stremio Status Logo" width="160">
   <h1 align="center">Stremio Status</h1>
-  <p align="center">Unified status page, health metrics, and monitoring addon for Stremio services</p>
+  <p align="center">Unified addon, status page and health metrics for Stremio services.</p>
 </p>
 
 ---
@@ -33,10 +33,21 @@
 
 ## Self-host with Docker
 ```
+## 1. Clone the repository
 git clone https://github.com/SolitudePy/stremio-status.git
 cd stremio-status
+
+## 2. Edit desired environment variables in .env
 cp .env.example .env
-docker compose up -d
+
+## Option 1: Run full stack
+docker compose up
+
+## Option 2: Run status overview only
+docker compose up --profile status
+
+## Option 3: Run stremio addon only
+docker compose up --profile addon
 ```
 
 ### Environment Variables
@@ -44,6 +55,7 @@ docker compose up -d
 | :--- | :--- | :--- | :---: |
 | `COMPOSE_PROFILES` | Docker Compose default profile | `full` | **No** |
 | `DB_PASSWORD` | Password for the PostgreSQL database | `secure_postgres_password_here` | **Yes** |
+| `POSTGRES_HOST` | Password for the PostgreSQL database | `postgres` | **Yes** |
 | `GRAFANA_PASSWORD` | Admin password for the Grafana dashboard | `admin_password_here` | **Yes** |
 | `GF_SERVER_DOMAIN` | The domain used specifically for Grafana | `stats.stremio-status.com` | **Yes** |
 | `DOMAIN` | Your public domain (e.g. `status.example.com`) | `stremio-status.com` | No |
@@ -51,9 +63,8 @@ docker compose up -d
 | `WARP_PROXY_URL` | Cloudflare WARP proxy for healthchecks (leave empty to use host IP) | (Empty) | No |
 | `DISCORD_WEBHOOK_ENABLED` | Set to `true` to enable Discord notifications | `false` | No |
 | `DISCORD_WEBHOOK_URL` | The Discord Webhook URL for alerts | (Empty) | No |
-| `ADDON_PORT` | Port the addon server listens on | `7000` | No |
 | `ADDON_LOG_LEVEL` | Logging verbosity (`debug`, `info`, `warning`, `error`) | `info` | No |
-| `ADDON_HEALTH_BASE_URL` | URL to fetch health data from status-page | `http://gatus:8080` | No |
+| `ADDON_HEALTH_BASE_URL` | URL to fetch health data from status-page | `http://gatus:8080` | **Yes** |
 | `ADDON_PUBLIC_BASE_URL` | Public URL where this addon is accessible | `http://localhost:7000` | No |
 | `ADDON_CACHE_TTL_SECONDS` | How long to cache health data (seconds) | `45` | No |
 

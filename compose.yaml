@@ -127,10 +127,9 @@ services:
     container_name: stremio-status
     restart: always
     ports:
-      - "${ADDON_PORT:-7000}:${ADDON_PORT:-7000}"
+      - "${ADDON_PORT:-7000}:7000"
     environment:
       - ADDON_HOST=0.0.0.0
-      - ADDON_PORT=${ADDON_PORT:-7000}
       - ADDON_HEALTH_BASE_URL=${ADDON_HEALTH_BASE_URL:-http://gatus:8080}
       - ADDON_PUBLIC_BASE_URL=${ADDON_PUBLIC_BASE_URL:-http://localhost:7000}
       - ADDON_CACHE_TTL_SECONDS=${ADDON_CACHE_TTL_SECONDS:-45}

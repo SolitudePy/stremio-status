@@ -1,0 +1,90 @@
+services:
+  gatus:
+    image: twinproduction/gatus:latest
+    networks:
+      - dokploy-network
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+        order: start-first
+      restart_policy:
+        condition: on-failure
+    env_file:
+      - .env
+    environment:
+      - GATUS_DELAY_START_SECONDS=10
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_HOST=${POSTGRES_HOST}
+    volumes:
+      - ./status-page/gatus/config.yaml:/config/config.yaml
+
+  grafana:
+    image: grafana/grafana-oss:latest
+    networks:
+      - dokploy-network
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+        order: start-first
+      restart_policy:
+        condition: on-failure
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+      - GF_SERVER_ROOT_URL=https://${GF_SERVER_DOMAIN:-stats.${DOMAIN}
+      - DOMAIN=${DOMAIN}
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Viewer
+      - GF_AUTH_ANONYMOUS_ORG_NAME=Main Org.
+      - GF_USERS_AUTO_ASSIGN_ORG=true
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_FORCE_MIGRATION=true
+      - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/etc/grafana/provisioning/dashboards/home.json
+      - GF_NEWS_NEWS_FEED_ENABLED=false
+      - GF_SECURITY_ALLOW_EMBEDDING=false
+      - GF_PANELS_DISABLE_SANITIZE_HTML=true
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+      - GF_AUTH_DISABLE_SIGNOUT_MENU=true
+      - GF_AUTH_ANONYMOUS_HIDE_VERSION=true
+      - GF_EXPLORE_ENABLED=false
+      - GF_HELP_ENABLED=false
+      - GF_UNIFIED_ALERTING_ENABLED=false
+      - GF_ALERTING_ENABLED=false
+      - DB_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_HOST=${POSTGRES_HOST}
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./status-page/grafana/provisioning:/etc/grafana/provisioning
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+
+  warp:
+    image: caomingjun/warp
+    networks:
+      - dokploy-network
+    cap_add:
+      - NET_ADMIN
+    deploy:
+      restart_policy:
+        condition: on-failure
+    healthcheck:
+      test: ["CMD", "curl", "-f", "-x", "http://localhost:1080", "https://www.cloudflare.com/cdn-cgi/trace"]
+      interval: 10s
+      retries: 5
+
+networks:
+  dokploy-network:
+    external: true
+
+volumes:
+  grafana_data:
+  warp_data:

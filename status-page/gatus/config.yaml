@@ -50,7 +50,7 @@ alerting:
 
 storage:
   type: postgres
-  path: "postgres://gatus:${POSTGRES_PASSWORD}@postgres:5432/gatus?sslmode=disable"
+  path: "postgres://gatus:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:5432/gatus?sslmode=disable"
   caching: true
 
 ui:
@@ -63,6 +63,7 @@ ui:
     #social {
       display: none !important;
     }
+  logo: "https://raw.githubusercontent.com/SolitudePy/stremio-status/refs/heads/main/stremio_status/static/logo.png"
   link: "https://github.com/SolitudePy/stremio-status"
   description: "Status page of popular Stremio addons & services."
   buttons:
