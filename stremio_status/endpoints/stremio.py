@@ -33,7 +33,7 @@ def _manifest_response(config: UserConfig) -> StremioManifest:
     settings = get_settings()
     base_url = str(settings.public_base_url).rstrip("/")
 
-    resources = []
+    resources: list[str | dict[str, Any]] = []
     catalogs = []
 
     if not config.hide_addon_status_catalog:
