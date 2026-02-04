@@ -1,7 +1,7 @@
 <p align="center">
   <img src="assets/logo.svg" alt="Stremio Status Logo" width="160">
   <h1 align="center">Stremio Status</h1>
-  <p align="center">Unified status page, health metrics, and monitoring addon for Stremio services</p>
+  <p align="center">Unified addon, status page and health metrics for Stremio services.</p>
 </p>
 
 ---
