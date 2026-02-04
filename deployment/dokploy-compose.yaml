@@ -35,7 +35,7 @@ services:
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
-      - GF_SERVER_ROOT_URL=https://${GF_SERVER_DOMAIN:-stats.${DOMAIN}}
+      - GF_SERVER_ROOT_URL=https://${GF_SERVER_DOMAIN:-stats.${DOMAIN}
       - DOMAIN=${DOMAIN}
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Viewer
