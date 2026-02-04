@@ -54,6 +54,7 @@ services:
       - GF_UNIFIED_ALERTING_ENABLED=false
       - GF_ALERTING_ENABLED=false
       - DB_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_HOST=${POSTGRES_HOST}
     volumes:
       - grafana_data:/var/lib/grafana
       - ./status-page/grafana/provisioning:/etc/grafana/provisioning
