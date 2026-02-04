@@ -5,7 +5,7 @@ datasources:
     type: postgres
     uid: "P51658C9617260799" # Fixed UID to match the Dashboard JSON
     access: proxy
-    url: postgres:5432
+    url: ${POSTGRES_HOST}:5432
     user: gatus
     secureJsonData:
       password: ${DB_PASSWORD}
