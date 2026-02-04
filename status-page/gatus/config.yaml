@@ -50,7 +50,7 @@ alerting:
 
 storage:
   type: postgres
-  path: "postgres://gatus:${POSTGRES_PASSWORD}@postgres:5432/gatus?sslmode=disable"
+  path: "postgres://gatus:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:5432/gatus?sslmode=disable"
   caching: true
 
 ui:
