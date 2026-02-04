@@ -11,12 +11,6 @@ services:
         order: start-first
       restart_policy:
         condition: on-failure
-    healthcheck:
-      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8080/health"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
-      start_period: 10s
     env_file:
       - .env
     environment:
