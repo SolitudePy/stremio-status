@@ -24,6 +24,11 @@ services:
     networks:
       - dokploy-network
     deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+        order: start-first
       restart_policy:
         condition: on-failure
     environment:
