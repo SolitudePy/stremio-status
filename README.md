@@ -52,9 +52,8 @@ docker compose up -d
 | `WARP_PROXY_URL` | Cloudflare WARP proxy for healthchecks (leave empty to use host IP) | (Empty) | No |
 | `DISCORD_WEBHOOK_ENABLED` | Set to `true` to enable Discord notifications | `false` | No |
 | `DISCORD_WEBHOOK_URL` | The Discord Webhook URL for alerts | (Empty) | No |
-| `ADDON_PORT` | Port the addon server listens on | `7000` | No |
 | `ADDON_LOG_LEVEL` | Logging verbosity (`debug`, `info`, `warning`, `error`) | `info` | No |
-| `ADDON_HEALTH_BASE_URL` | URL to fetch health data from status-page | `http://gatus:8080` | No |
+| `ADDON_HEALTH_BASE_URL` | URL to fetch health data from status-page | `http://gatus:8080` | **Yes** |
 | `ADDON_PUBLIC_BASE_URL` | Public URL where this addon is accessible | `http://localhost:7000` | No |
 | `ADDON_CACHE_TTL_SECONDS` | How long to cache health data (seconds) | `45` | No |
 
