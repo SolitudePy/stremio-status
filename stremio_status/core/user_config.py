@@ -14,10 +14,14 @@ class UserConfig(BaseModel):
         addons: list of addon keys to monitor. Empty list = no addons.
                 If None (omitted from JSON), means "all addons".
         only_down: If True, only show unhealthy addons in streams.
+        hide_addon_status_catalog: If True, hide the "Addon Status" catalog in Stremio.
     """
 
     addons: list[str] | None = None  # None = all addons, [] = no addons
     only_down: bool = Field(default=True, alias="onlyDown")
+    hide_addon_status_catalog: bool = Field(
+        default=False, alias="hideAddonStatusCatalog"
+    )
 
     def wants_all_addons(self) -> bool:
         """Check if config means 'show all addons'."""
