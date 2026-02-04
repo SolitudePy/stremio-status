@@ -56,6 +56,7 @@ services:
       - DB_PASSWORD=${DB_PASSWORD}
     volumes:
       - grafana_data:/var/lib/grafana
+      - ../status-page/grafana/provisioning:/etc/grafana/provisioning
     healthcheck:
       test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000/api/health"]
       interval: 30s
