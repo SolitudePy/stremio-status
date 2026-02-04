@@ -44,6 +44,7 @@ docker compose up -d
 | :--- | :--- | :--- | :---: |
 | `COMPOSE_PROFILES` | Docker Compose default profile | `full` | **No** |
 | `DB_PASSWORD` | Password for the PostgreSQL database | `secure_postgres_password_here` | **Yes** |
+| `POSTGRES_HOST` | Password for the PostgreSQL database | `postgres` | **Yes** |
 | `GRAFANA_PASSWORD` | Admin password for the Grafana dashboard | `admin_password_here` | **Yes** |
 | `GF_SERVER_DOMAIN` | The domain used specifically for Grafana | `stats.stremio-status.com` | **Yes** |
 | `DOMAIN` | Your public domain (e.g. `status.example.com`) | `stremio-status.com` | No |
