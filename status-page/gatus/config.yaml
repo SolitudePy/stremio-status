@@ -63,6 +63,7 @@ ui:
     #social {
       display: none !important;
     }
+  logo: "https://raw.githubusercontent.com/SolitudePy/stremio-status/refs/heads/main/assets/logo.svg"
   link: "https://github.com/SolitudePy/stremio-status"
   description: "Status page of popular Stremio addons & services."
   buttons:
