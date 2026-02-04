@@ -17,7 +17,7 @@ services:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_HOST=${POSTGRES_HOST}
     volumes:
-      - ../status-page/gatus/config.yaml:/config/config.yaml
+      - ./status-page/gatus/config.yaml:/config/config.yaml
 
   grafana:
     image: grafana/grafana-oss:latest
@@ -56,7 +56,7 @@ services:
       - DB_PASSWORD=${DB_PASSWORD}
     volumes:
       - grafana_data:/var/lib/grafana
-      - ../status-page/grafana/provisioning:/etc/grafana/provisioning
+      - ./status-page/grafana/provisioning:/etc/grafana/provisioning
     healthcheck:
       test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000/api/health"]
       interval: 30s
