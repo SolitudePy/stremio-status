@@ -80,6 +80,70 @@
             padding: 24px;
             margin-bottom: 20px;
             backdrop-filter: blur(10px);
+            opacity: 0;
+            animation: fadeIn 0.4s ease-out 0.2s forwards;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .info-card {
+            background: rgba(124, 58, 237, 0.1);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 24px;
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            animation: fadeIn 0.4s ease-out 0.1s forwards;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .info-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+        }
+
+        .info-card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .info-card-toggle {
+            font-size: 0.8rem;
+            color: #a1a1aa;
+            transition: transform 0.3s ease;
+        }
+
+        .info-card-toggle.expanded {
+            transform: rotate(180deg);
+        }
+
+        .info-card-text {
+            font-size: 0.9rem;
+            color: #d4d4d8;
+            line-height: 1.5;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.3s ease, opacity 0.3s ease, margin-top 0.3s ease;
+            margin-top: 0;
+        }
+
+        .info-card-text.expanded {
+            max-height: 200px;
+            opacity: 1;
+            margin-top: 12px;
         }
 
         .card-title {
@@ -89,10 +153,48 @@
             color: #fff;
         }
 
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .selection-badge {
+            font-size: 0.85rem;
+            color: #a1a1aa;
+            background: rgba(124, 58, 237, 0.2);
+            padding: 4px 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(124, 58, 237, 0.3);
+        }
+
         .button-row {
             display: flex;
             gap: 10px;
             margin-bottom: 16px;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 10px 12px;
+            margin-bottom: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            color: #e4e4e7;
+            font-size: 0.9rem;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .search-box::placeholder {
+            color: #71717a;
+        }
+
+        .search-box:focus {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(124, 58, 237, 0.5);
         }
 
         .btn-small {
@@ -125,11 +227,12 @@
             padding: 10px 12px;
             border-radius: 6px;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: background 0.2s ease, transform 0.1s ease;
         }
 
         .addon-item:hover {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(4px);
         }
 
         .addon-item input[type="checkbox"] {
@@ -277,6 +380,47 @@
             to { transform: rotate(360deg); }
         }
 
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translate(-50%, 20px);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+
+        .header {
+            opacity: 0;
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
+        .info-card {
+            opacity: 0;
+            animation: fadeIn 0.4s ease-out 0.1s forwards;
+        }
+
+        .card {
+            opacity: 0;
+            animation: fadeIn 0.4s ease-out 0.2s forwards;
+        }
+
         .toast {
             position: fixed;
             bottom: 20px;
@@ -288,18 +432,36 @@
             border-radius: 8px;
             font-weight: 500;
             opacity: 0;
-            transition: opacity 0.3s;
             pointer-events: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
         .toast.show {
-            opacity: 1;
+            animation: slideUp 0.3s ease-out forwards;
         }
 
         .empty-state {
             text-align: center;
             padding: 40px 20px;
             color: #71717a;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #a1a1aa;
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: #7c3aed;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer a:hover {
+            color: #9f67ff;
         }
 
         @media (max-width: 480px) {
@@ -318,15 +480,29 @@
         <div class="header">
             <img src="/static/logo.svg" alt="Stremio Status Logo" class="header-logo">
             <h1>Stremio Status</h1>
-            <p>Configure your addon</p>
+            <p>Get notified when addons go down</p>
             <a href="https://github.com/SolitudePy/stremio-status" target="_blank" class="github-btn">
-                <img src="https://cdn.jsdelivr.net/npm/simple-icons@v14/icons/github.svg" height="20" width="20" alt="GitHub">
-                <span>View on GitHub</span>
+                <span>⭐ Star on GitHub</span>
             </a>
         </div>
 
+        <div class="info-card" onclick="toggleInfoCard()">
+            <div class="info-card-title">
+                <span>📊 What is this?</span>
+                <span class="info-card-toggle" id="info-toggle">▼</span>
+            </div>
+            <div class="info-card-text" id="info-text">
+                This addon shows real-time health status of your Stremio addons directly inside your Stremio client. 
+                When an addon goes down, you'll see it immediately in your video streams without leaving Stremio.
+            </div>
+        </div>
+
         <div class="card">
-            <div class="card-title">Select Addons to Monitor</div>
+            <div class="card-header">
+                <div class="card-title">Select Addons to Monitor</div>
+                <div class="selection-badge" id="selection-counter">0 of 0 selected</div>
+            </div>
+            <input type="text" class="search-box" id="addon-search" placeholder="🔍 Search addons..." oninput="filterAddons()">
             <div class="button-row">
                 <button class="btn-small" onclick="selectAll()">Select All</button>
                 <button class="btn-small" onclick="selectNone()">Select None</button>
@@ -342,7 +518,10 @@
         <div class="card">
             <div class="card-title">Options</div>
             <div class="option-row">
-                <span class="option-label">Show only Down addons</span>
+                <span class="option-label">
+                    Show only Down addons
+                    <span class="help-icon" title="When enabled, only shows status streams for unhealthy addons. When disabled, shows all monitored addons regardless of status">ⓘ</span>
+                </span>
                 <label class="toggle">
                     <input type="checkbox" id="only-down" checked>
                     <span class="toggle-slider"></span>
@@ -351,7 +530,7 @@
             <div class="option-row">
                 <span class="option-label">
                     Hide Addon Status catalog
-                    <span class="help-icon" title="When enabled, the Addon Status catalog won't appear in your Stremio">ⓘ</span>
+                    <span class="help-icon" title="When enabled, the Addon Status catalog won't appear in your Stremio library (streams will still be available)">ⓘ</span>
                 </span>
                 <label class="toggle">
                     <input type="checkbox" id="hide-addon-status-catalog">
@@ -364,12 +543,25 @@
             <button class="btn btn-primary" onclick="installAddon()">Install Addon</button>
             <button class="btn btn-secondary" onclick="copyUrl()">Copy URL</button>
         </div>
+
+        <div class="footer">
+            Made with ❤️ by <a href="https://github.com/SolitudePy" target="_blank">SolitudePy</a>
+        </div>
     </div>
 
     <div class="toast" id="toast">URL copied to clipboard!</div>
 
     <script>
         let endpoints = [];
+
+        // Toggle info card expand/collapse
+        function toggleInfoCard() {
+            const text = document.getElementById('info-text');
+            const toggle = document.getElementById('info-toggle');
+            
+            text.classList.toggle('expanded');
+            toggle.classList.toggle('expanded');
+        }
 
         const decodeConfigToken = (token) => {
             const defaultConfig = { addons: null, onlyDown: true, hideAddonStatusCatalog: false };
@@ -415,16 +607,41 @@
             
             if (endpoints.length === 0) {
                 container.innerHTML = '<div class="empty-state">No addons found</div>';
+                updateSelectionCounter();
                 return;
             }
 
             container.innerHTML = endpoints.map(ep => `
                 <label class="addon-item">
-                    <input type="checkbox" value="${ep.key}" checked>
+                    <input type="checkbox" value="${ep.key}" checked onchange="updateSelectionCounter()">
                     <span class="addon-name">${ep.name}</span>
                     <span class="addon-group">(${ep.group})</span>
                 </label>
             `).join('');
+            updateSelectionCounter();
+        }
+
+        function updateSelectionCounter() {
+            const checkboxes = document.querySelectorAll('#addon-list input[type="checkbox"]');
+            const checked = Array.from(checkboxes).filter(cb => cb.checked).length;
+            const total = checkboxes.length;
+            document.getElementById('selection-counter').textContent = `${checked} of ${total} selected`;
+        }
+
+        function filterAddons() {
+            const searchTerm = document.getElementById('addon-search').value.toLowerCase();
+            const addonItems = document.querySelectorAll('.addon-item');
+            
+            addonItems.forEach(item => {
+                const name = item.querySelector('.addon-name').textContent.toLowerCase();
+                const group = item.querySelector('.addon-group').textContent.toLowerCase();
+                
+                if (name.includes(searchTerm) || group.includes(searchTerm)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
         }
 
         function applyExistingConfig() {
@@ -464,12 +681,14 @@
             document.querySelectorAll('#addon-list input[type="checkbox"]').forEach(cb => {
                 cb.checked = true;
             });
+            updateSelectionCounter();
         }
 
         function selectNone() {
             document.querySelectorAll('#addon-list input[type="checkbox"]').forEach(cb => {
                 cb.checked = false;
             });
+            updateSelectionCounter();
         }
 
         function getConfig() {
