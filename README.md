@@ -44,10 +44,10 @@ cp .env.example .env
 docker compose up
 
 ## Option 2: Run status overview only
-docker compose up --profile status
+docker compose --profile status up
 
 ## Option 3: Run stremio addon only
-docker compose up --profile addon
+docker compose --profile addon up
 ```
 
 ### Environment Variables
