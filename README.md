@@ -8,9 +8,10 @@
 
 | Service | Link |
 | :--- | :--- |
+| **Configure Addon** | [addon.stremio-status.com](https://addon.stremio-status.com) |
 | **Status Page** | [status.stremio-status.com](https://status.stremio-status.com) |
 | **Grafana Analytics** | [stats.stremio-status.com](https://stats.stremio-status.com/d/home-dashboard/community-status-home?kiosk=true&orgId=1&from=now-24h&to=now&timezone=browser&refresh=1m) |
-| **Addon Config** | [addon.stremio-status.com](https://addon.stremio-status.com) |
+
 
 ---
 
