@@ -43,6 +43,18 @@ anchors:
     <<: *stremio-addon-check
     client:
       proxy-url: "${PROXY_URL}"
+  
+  # ==========================================
+  # Platform Service Check
+  # Basic HTTP 200 + certificate validation using WARP Proxy
+  # ==========================================
+  platform-service-check: &platform-service-check
+    <<: *base-check
+    conditions:
+      - "[STATUS] == 200"
+      - "[CERTIFICATE_EXPIRATION] > 72h"
+    client:
+      proxy-url: "${WARP_PROXY_URL}"
 
 alerting:
   discord:
@@ -305,3 +317,27 @@ endpoints:
     group: 07. Comet Instances
     url: "https://comet.stremio.ru/manifest.json"
     <<: *stremio-addon-check
+
+  # ==========================================
+  # GROUP: Stremio Platform Services
+  # ==========================================
+  - name: Stremio API
+    group: 08. Stremio Platform Services
+    url: "https://api.strem.io/api/v1"
+    <<: *platform-service-check
+    method: POST
+
+  - name: Cinemeta
+    group: 08. Stremio Platform Services
+    url: "https://v3-cinemeta.strem.io/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: Stremio Web Player
+    group: 08. Stremio Platform Services
+    url: "https://web.stremio.com/"
+    <<: *platform-service-check
+
+  - name: Stremio Website
+    group: 08. Stremio Platform Services
+    url: "https://www.stremio.com/"
+    <<: *platform-service-check
