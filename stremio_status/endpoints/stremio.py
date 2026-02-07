@@ -38,7 +38,9 @@ def _manifest_response(config: UserConfig) -> StremioManifest:
 
     if not config.hide_addon_status_catalog:
         resources.append("catalog")
-        catalogs.append({"type": "other", "id": "addon-status", "name": "Addon Status"})
+        catalogs.append(
+            {"type": "other", "id": "addon-status", "name": "Service Status"}
+        )
 
     resources.extend(
         [

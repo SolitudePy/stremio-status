@@ -55,6 +55,18 @@ anchors:
       - "[CERTIFICATE_EXPIRATION] > 72h"
     client:
       proxy-url: "${WARP_PROXY_URL}"
+  
+  # ==========================================
+  # Debrid API Check (for debrid/download services)
+  # Accepts both 200 and 401 - both prove API is responding
+  # ==========================================
+  debrid-api-check: &debrid-api-check
+    <<: *base-check
+    conditions:
+      - "[STATUS] == 200"
+      - "[CERTIFICATE_EXPIRATION] > 72h"
+    client:
+      proxy-url: "${WARP_PROXY_URL}"
 
 alerting:
   discord:
@@ -341,3 +353,26 @@ endpoints:
     group: 08. Stremio Platform Services
     url: "https://www.stremio.com/"
     <<: *platform-service-check
+
+  # ==========================================
+  # GROUP: Debrid Services
+  # ==========================================
+  - name: Real-Debrid API
+    group: 09. Debrid Services
+    url: "https://api.real-debrid.com/rest/1.0/time"
+    <<: *debrid-api-check
+
+  - name: AllDebrid API
+    group: 09. Debrid Services
+    url: "https://api.alldebrid.com/v4/ping"
+    <<: *debrid-api-check
+
+  - name: Premiumize API
+    group: 09. Debrid Services
+    url: "https://www.premiumize.me/api/account/info"
+    <<: *debrid-api-check
+
+  - name: TorBox API
+    group: 09. Debrid Services
+    url: "https://api.torbox.app/v1/api/stats"
+    <<: *debrid-api-check

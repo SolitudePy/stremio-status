@@ -50,6 +50,23 @@
             font-size: 0.95rem;
         }
 
+        .header-subtext {
+            color: #71717a;
+            font-size: 0.85rem;
+            margin-top: 8px;
+        }
+
+        .header-subtext a {
+            color: #7c3aed;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .header-subtext a:hover {
+            color: #9f67ff;
+            text-decoration: underline;
+        }
+
         .github-btn {
             display: inline-flex;
             align-items: center;
@@ -480,9 +497,12 @@
         <div class="header">
             <img src="/static/logo.svg" alt="Stremio Status Logo" class="header-logo">
             <h1>Stremio Status</h1>
-            <p>Get notified when addons go down</p>
+            <p>Get notified when services are unhealthy</p>
+            <p class="header-subtext">
+                Missing a service? <a href="https://github.com/SolitudePy/stremio-status" target="_blank" rel="noopener">Request it on GitHub</a>
+            </p>
             <a href="https://github.com/SolitudePy/stremio-status" target="_blank" class="github-btn">
-                <span>⭐ Star on GitHub</span>
+                <span>⭐ Star the project on GitHub if you find it useful! :) ⭐</span>
             </a>
         </div>
 
@@ -529,8 +549,8 @@
             </div>
             <div class="option-row">
                 <span class="option-label">
-                    Hide Addon Status catalog
-                    <span class="help-icon" title="When enabled, the Addon Status catalog won't appear in your Stremio library (streams will still be available)">ⓘ</span>
+                    Hide Service Status catalog
+                    <span class="help-icon" title="When enabled, the Service Status catalog won't appear in your Stremio library (streams will still be available)">ⓘ</span>
                 </span>
                 <label class="toggle">
                     <input type="checkbox" id="hide-addon-status-catalog">
