@@ -75,17 +75,6 @@ def filter_by_health(
     return [ep for ep in endpoints if not ep.healthy]
 
 
-def apply_config_filter(
-    endpoints: list[GatusEndpoint], config: UserConfig
-) -> list[GatusEndpoint]:
-    """Apply all user config filters to endpoints.
-
-    Combines addon selection and health filtering.
-    """
-    result = filter_by_addon_selection(endpoints, config)
-    return filter_by_health(result, config.only_down)
-
-
 async def build_catalog(config: UserConfig) -> list[CatalogItem]:
     """Build catalog items - always shows all health statuses.
 
@@ -140,12 +129,29 @@ async def build_streams(config: UserConfig) -> list[Stream]:
 
     Respects config.only_down to filter healthy/unhealthy endpoints.
     Sorts: DOWN first, then UP, alphabetically by name.
+    Optionally prepends a watchdog summary card.
     """
     endpoints = await get_status_snapshot()
-    filtered = apply_config_filter(endpoints, config)
+
+    # Get selected endpoints (before health filtering)
+    selected_endpoints = filter_by_addon_selection(endpoints, config)
+
+    filtered = filter_by_health(selected_endpoints, config.only_down)
     sorted_eps = ui.sort_endpoints(filtered)
 
     streams: list[Stream] = []
+
+    if config.show_watchdog and len(selected_endpoints) > 0:
+        emoji, status, total, last_check = ui.get_status_summary(selected_endpoints)
+        streams.append(
+            Stream(
+                name=f"{emoji} Stremio Status",
+                description=ui.format_watchdog_desc(status, total, last_check),
+                url=f"{settings.public_base_url}",
+                behaviorHints={"notWebReady": True},
+            )
+        )
+
     for ep in sorted_eps:
         emoji = ui.status_emoji(ep.healthy)
 
