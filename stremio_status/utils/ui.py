@@ -83,3 +83,41 @@ format_stream_desc = format_status_desc
 def sort_endpoints(endpoints: list[GatusEndpoint]) -> list[GatusEndpoint]:
     """Sort endpoints: unhealthy first, then healthy, then by name."""
     return sorted(endpoints, key=lambda ep: (ep.healthy, ep.name.lower()))
+
+
+def get_status_summary(endpoints: list[GatusEndpoint]) -> tuple[str, str, int, str]:
+    """Calculate monitoring status summary for endpoints.
+
+    Returns emoji (✅/⚠️/⛔), status text, total count, and last check time.
+    Emoji indicates overall health: all up, mixed, or all down.
+    """
+    total = len(endpoints)
+    down = sum(1 for ep in endpoints if not ep.healthy)
+
+    if down == 0:
+        emoji = "✅"
+        status = "All operational"
+    elif down == total:
+        emoji = "⛔"
+        status = "All down"
+    else:
+        emoji = "⚠️"
+        status = f"{down} down, {total - down} up"
+
+    recent_ts = max(
+        (ep.last_updated for ep in endpoints if ep.last_updated),
+        default=None,
+    )
+    last_check = format_relative_time(recent_ts)
+
+    return emoji, status, total, last_check
+
+
+def format_watchdog_desc(status: str, total: int, last_check: str) -> str:
+    """Format watchdog summary description for monitoring status."""
+    return (
+        f"[Stremio Status]\n"
+        f"Monitoring: {total} addon{'s' if total != 1 else ''}\n"
+        f"Status: {status}\n"
+        f"Last Check: {last_check}"
+    )

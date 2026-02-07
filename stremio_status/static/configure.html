@@ -537,6 +537,16 @@
                     <span class="toggle-slider"></span>
                 </label>
             </div>
+            <div class="option-row">
+                <span class="option-label">
+                    Show watchdog card
+                    <span class="help-icon" title="Always shows a summary card so you know Stremio Status is working. Useful when 'Show only Down' is enabled and all addons are up.">ⓘ</span>
+                </span>
+                <label class="toggle">
+                    <input type="checkbox" id="show-watchdog">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
         </div>
 
         <div class="actions">
@@ -564,7 +574,7 @@
         }
 
         const decodeConfigToken = (token) => {
-            const defaultConfig = { addons: null, onlyDown: true, hideAddonStatusCatalog: false };
+            const defaultConfig = { addons: null, onlyDown: true, hideAddonStatusCatalog: false, showWatchdog: false };
             
             const addPadding = (str) => str + '='.repeat((4 - str.length % 4) % 4);
             const urlSafeToBase64 = (str) => str.replace(/-/g, '+').replace(/_/g, '/');
@@ -675,6 +685,11 @@
             if (config.hideAddonStatusCatalog !== undefined) {
                 document.getElementById('hide-addon-status-catalog').checked = config.hideAddonStatusCatalog;
             }
+
+            // Handle showWatchdog toggle
+            if (config.showWatchdog !== undefined) {
+                document.getElementById('show-watchdog').checked = config.showWatchdog;
+            }
         }
 
         function selectAll() {
@@ -699,6 +714,7 @@
             
             const onlyDown = document.getElementById('only-down').checked;
             const hideAddonStatusCatalog = document.getElementById('hide-addon-status-catalog').checked;
+            const showWatchdog = document.getElementById('show-watchdog').checked;
             
             // Build config object
             const config = {};
@@ -717,6 +733,11 @@
             // Only include hideAddonStatusCatalog when true (checked), since false is the default
             if (hideAddonStatusCatalog) {
                 config.hideAddonStatusCatalog = true;
+            }
+
+            // Only include showWatchdog when true (checked), since false is the default
+            if (showWatchdog) {
+                config.showWatchdog = true;
             }
             
             return config;

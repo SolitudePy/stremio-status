@@ -22,6 +22,7 @@ class UserConfig(BaseModel):
     hide_addon_status_catalog: bool = Field(
         default=False, alias="hideAddonStatusCatalog"
     )
+    show_watchdog: bool = Field(default=False, alias="showWatchdog")
 
     def wants_all_addons(self) -> bool:
         """Check if config means 'show all addons'."""
