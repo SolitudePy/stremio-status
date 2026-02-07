@@ -16,12 +16,6 @@
 
 * semantic ui changes to match services logic instead of addons ([#23](https://github.com/SolitudePy/stremio-status/issues/23)) ([f8c7210](https://github.com/SolitudePy/stremio-status/commit/f8c721074207540a4433581e4c10907d80602c69))
 
-
-### Documentation
-
-* Fix command syntax in README ([af5fb3a](https://github.com/SolitudePy/stremio-status/commit/af5fb3a70727b2f1a6c5e4ac7a3f236f60eec831))
-* Update README ([e87b72d](https://github.com/SolitudePy/stremio-status/commit/e87b72d4482e7e465f05a5d6a0342cb1c8f13d61))
-
 ## [1.2.0](https://github.com/SolitudePy/stremio-status/compare/v1.1.1...v1.2.0) (2026-02-03)
 
 
