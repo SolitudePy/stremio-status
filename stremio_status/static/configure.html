@@ -230,7 +230,7 @@
             border-color: rgba(255, 255, 255, 0.3);
         }
 
-        .addon-list {
+        .service-list {
             max-height: 300px;
             overflow-y: auto;
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -238,7 +238,7 @@
             padding: 8px;
         }
 
-        .addon-item {
+        .service-item {
             display: flex;
             align-items: center;
             padding: 10px 12px;
@@ -247,12 +247,12 @@
             transition: background 0.2s ease, transform 0.1s ease;
         }
 
-        .addon-item:hover {
+        .service-item:hover {
             background: rgba(255, 255, 255, 0.08);
             transform: translateX(4px);
         }
 
-        .addon-item input[type="checkbox"] {
+        .service-item input[type="checkbox"] {
             width: 18px;
             height: 18px;
             margin-right: 12px;
@@ -260,12 +260,12 @@
             cursor: pointer;
         }
 
-        .addon-name {
+        .service-name {
             flex: 1;
             font-size: 0.95rem;
         }
 
-        .addon-group {
+        .service-group {
             font-size: 0.8rem;
             color: #71717a;
             margin-left: 8px;
@@ -512,25 +512,25 @@
                 <span class="info-card-toggle" id="info-toggle">▼</span>
             </div>
             <div class="info-card-text" id="info-text">
-                This addon shows real-time health status of your Stremio addons directly inside your Stremio client. 
-                When an addon goes down, you'll see it immediately in your video streams without leaving Stremio.
+                This addon shows real-time health status of Stremio addons and services directly inside your Stremio client. 
+                When a service goes down, you'll see it immediately in your video streams without leaving Stremio.
             </div>
         </div>
 
         <div class="card">
             <div class="card-header">
-                <div class="card-title">Select Addons to Monitor</div>
+                <div class="card-title">Select Services to Monitor</div>
                 <div class="selection-badge" id="selection-counter">0 of 0 selected</div>
             </div>
-            <input type="text" class="search-box" id="addon-search" placeholder="🔍 Search addons..." oninput="filterAddons()">
+            <input type="text" class="search-box" id="service-search" placeholder="🔍 Search services..." oninput="filterServices()">
             <div class="button-row">
                 <button class="btn-small" onclick="selectAll()">Select All</button>
                 <button class="btn-small" onclick="selectNone()">Select None</button>
             </div>
-            <div id="addon-list" class="addon-list">
+            <div id="service-list" class="service-list">
                 <div class="loading">
                     <div class="spinner"></div>
-                    <div>Loading addons...</div>
+                    <div>Loading services...</div>
                 </div>
             </div>
         </div>
@@ -539,8 +539,8 @@
             <div class="card-title">Options</div>
             <div class="option-row">
                 <span class="option-label">
-                    Show only Down addons
-                    <span class="help-icon" title="When enabled, only shows status streams for unhealthy addons. When disabled, shows all monitored addons regardless of status">ⓘ</span>
+                    Show only Down services
+                    <span class="help-icon" title="When enabled, only shows status streams for unhealthy services. When disabled, shows all monitored services regardless of status">ⓘ</span>
                 </span>
                 <label class="toggle">
                     <input type="checkbox" id="only-down" checked>
@@ -560,7 +560,7 @@
             <div class="option-row">
                 <span class="option-label">
                     Show watchdog card
-                    <span class="help-icon" title="Always shows a summary card so you know Stremio Status is working. Useful when 'Show only Down' is enabled and all addons are up.">ⓘ</span>
+                    <span class="help-icon" title="Always shows a summary stream card so you know Stremio Status is working. Useful when 'Show only Down' is enabled and all services are up.">ⓘ</span>
                 </span>
                 <label class="toggle">
                     <input type="checkbox" id="show-watchdog">
@@ -622,49 +622,49 @@
                 const response = await fetch('/api/endpoints');
                 const data = await response.json();
                 endpoints = data.endpoints || [];
-                renderAddonList();
+                renderServiceList();
                 applyExistingConfig();
             } catch (error) {
                 console.error('Failed to load endpoints:', error);
-                document.getElementById('addon-list').innerHTML = `
-                    <div class="empty-state">Failed to load addons. Please refresh.</div>
+                document.getElementById('service-list').innerHTML = `
+                    <div class="empty-state">Failed to load services. Please refresh.</div>
                 `;
             }
         }
 
-        function renderAddonList() {
-            const container = document.getElementById('addon-list');
+        function renderServiceList() {
+            const container = document.getElementById('service-list');
             
             if (endpoints.length === 0) {
-                container.innerHTML = '<div class="empty-state">No addons found</div>';
+                container.innerHTML = '<div class="empty-state">No services found</div>';
                 updateSelectionCounter();
                 return;
             }
 
             container.innerHTML = endpoints.map(ep => `
-                <label class="addon-item">
+                <label class="service-item">
                     <input type="checkbox" value="${ep.key}" checked onchange="updateSelectionCounter()">
-                    <span class="addon-name">${ep.name}</span>
-                    <span class="addon-group">(${ep.group})</span>
+                    <span class="service-name">${ep.name}</span>
+                    <span class="service-group">(${ep.group})</span>
                 </label>
             `).join('');
             updateSelectionCounter();
         }
 
         function updateSelectionCounter() {
-            const checkboxes = document.querySelectorAll('#addon-list input[type="checkbox"]');
+            const checkboxes = document.querySelectorAll('#service-list input[type="checkbox"]');
             const checked = Array.from(checkboxes).filter(cb => cb.checked).length;
             const total = checkboxes.length;
             document.getElementById('selection-counter').textContent = `${checked} of ${total} selected`;
         }
 
-        function filterAddons() {
-            const searchTerm = document.getElementById('addon-search').value.toLowerCase();
-            const addonItems = document.querySelectorAll('.addon-item');
+        function filterServices() {
+            const searchTerm = document.getElementById('service-search').value.toLowerCase();
+            const serviceItems = document.querySelectorAll('.service-item');
             
-            addonItems.forEach(item => {
-                const name = item.querySelector('.addon-name').textContent.toLowerCase();
-                const group = item.querySelector('.addon-group').textContent.toLowerCase();
+            serviceItems.forEach(item => {
+                const name = item.querySelector('.service-name').textContent.toLowerCase();
+                const group = item.querySelector('.service-group').textContent.toLowerCase();
                 
                 if (name.includes(searchTerm) || group.includes(searchTerm)) {
                     item.style.display = 'flex';
@@ -681,13 +681,13 @@
 
             const config = window.EXISTING_CONFIG;
 
-            // Handle addon selection
-            // If addons is null/undefined, it means "all addons" - keep all checked
-            // If addons is an array (even empty), select only those specific addons
+            // Handle service selection (keep 'addons' for backwards compatibility)
+            // If addons is null/undefined, it means "all services" - keep all checked
+            // If addons is an array (even empty), select only those specific services
             if (config.addons !== undefined && config.addons !== null) {
                 selectNone();
-                config.addons.forEach(addonKey => {
-                    const checkbox = document.querySelector(`#addon-list input[value="${addonKey}"]`);
+                config.addons.forEach(serviceKey => {
+                    const checkbox = document.querySelector(`#service-list input[value="${serviceKey}"]`);
                     if (checkbox) {
                         checkbox.checked = true;
                     }
@@ -713,22 +713,22 @@
         }
 
         function selectAll() {
-            document.querySelectorAll('#addon-list input[type="checkbox"]').forEach(cb => {
+            document.querySelectorAll('#service-list input[type="checkbox"]').forEach(cb => {
                 cb.checked = true;
             });
             updateSelectionCounter();
         }
 
         function selectNone() {
-            document.querySelectorAll('#addon-list input[type="checkbox"]').forEach(cb => {
+            document.querySelectorAll('#service-list input[type="checkbox"]').forEach(cb => {
                 cb.checked = false;
             });
             updateSelectionCounter();
         }
 
         function getConfig() {
-            const checkboxes = document.querySelectorAll('#addon-list input[type="checkbox"]');
-            const selectedAddons = Array.from(checkboxes)
+            const checkboxes = document.querySelectorAll('#service-list input[type="checkbox"]');
+            const selectedServices = Array.from(checkboxes)
                 .filter(cb => cb.checked)
                 .map(cb => cb.value);
             
@@ -739,10 +739,11 @@
             // Build config object
             const config = {};
             
-            // If all addons selected, omit 'addons' field (means "all")
+            // If all services selected, omit 'addons' field (means "all")
             // If some or none selected, include the list
-            if (selectedAddons.length < endpoints.length) {
-                config.addons = selectedAddons;
+            // Keep field name as 'addons' for backwards compatibility
+            if (selectedServices.length < endpoints.length) {
+                config.addons = selectedServices;
             }
             
             // Only include onlyDown when false (unchecked), since true is the default
