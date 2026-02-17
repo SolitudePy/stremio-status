@@ -188,7 +188,17 @@ endpoints:
     url: "https://aiostreamsfortheweak.nhyira.dev/stremio/manifest.json"
     <<: *stremio-addon-check
 
+  - name: AIOStreams (Nhyira Nightly)
+    group: 03. AIOStreams Instances
+    url: "https://aiostreams-nightly.fortheweak.cloud/stremio/manifest.json"
+    <<: *stremio-addon-check
+
   - name: AIOStreams (MidnightIgnite)
+    group: 03. AIOStreams Instances
+    url: "https://aiostreamsfortheweebsstable.midnightignite.me/stremio/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: AIOStreams (MidnightIgnite Nightly)
     group: 03. AIOStreams Instances
     url: "https://aiostreamsfortheweebs.midnightignite.me/stremio/manifest.json"
     <<: *stremio-addon-check
@@ -211,6 +221,11 @@ endpoints:
   - name: AIOStreams (Kuu)
     group: 03. AIOStreams Instances
     url: "https://aiostreams.stremio.ru/stremio/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: AIOStreams (Kuu Nightly)
+    group: 03. AIOStreams Instances
+    url: "https://aiostreams-nightly.stremio.ru/stremio/manifest.json"
     <<: *stremio-addon-check
 
   - name: AIOStreams (Viren070)
