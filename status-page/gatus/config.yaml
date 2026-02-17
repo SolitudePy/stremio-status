@@ -147,6 +147,15 @@ endpoints:
     url: "https://sooti.click/manifest.json"
     <<: *stremio-addon-check
 
+  - name: DebridIO (UptimeRobot)
+    group: 01. General Scrapers
+    url: "https://stats.uptimerobot.com/api/getMonitor/Lv6feb4Prf?m=800801961"
+    <<: *platform-service-check
+    conditions:
+      - "[STATUS] == 200"
+      - "[CERTIFICATE_EXPIRATION] > 72h"
+      - "[BODY].status == ok"
+
   # ==========================================
   # GROUP: Metadata & Catalogs
   # ==========================================
@@ -174,6 +183,11 @@ endpoints:
     group: 02. Metadata & Catalogs
     url: "https://mytrakt.elfhosted.com/manifest.json"
     <<: *stremio-addon-check
+
+  - name: MDBList API
+    group: 02. Metadata & Catalogs
+    url: "https://api.mdblist.com"
+    <<: *platform-service-check
 
   # ==========================================
   # GROUP: AIOStreams Instances
