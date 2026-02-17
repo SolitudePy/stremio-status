@@ -185,7 +185,7 @@ endpoints:
 
   - name: AIOStreams (Nhyira)
     group: 03. AIOStreams Instances
-    url: "https://aiostreamsfortheweak.nhyira.dev/stremio/manifest.json"
+    url: "https://aiostreams.fortheweak.cloud/stremio/manifest.json"
     <<: *stremio-addon-check
 
   - name: AIOStreams (Nhyira Nightly)
@@ -243,7 +243,7 @@ endpoints:
 
   - name: AIOMetadata (Nhyira)
     group: 04. AIOMetadata Instances
-    url: "https://aiometadatafortheweak.nhyira.dev/stremio/manifest.json"
+    url: "https://aiometadata.fortheweak.cloud/stremio/manifest.json"
     <<: *stremio-addon-check
 
   - name: AIOMetadata (MidnightIgnite)
@@ -286,7 +286,7 @@ endpoints:
 
   - name: StremThru (Nhyira)
     group: 05. StremThru Instances
-    url: "https://stremthrufortheweak.nhyira.dev/stremio/manifest.json"
+    url: "https://stremthru.fortheweak.cloud/stremio/manifest.json"
     <<: *stremio-addon-check
 
   - name: StremThru (13377001)
