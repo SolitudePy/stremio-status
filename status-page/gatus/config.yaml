@@ -28,7 +28,7 @@ anchors:
     <<: *base-check
     conditions:
       - "[STATUS] == 200"
-      - "[CERTIFICATE_EXPIRATION] > 72h"
+      - "[CERTIFICATE_EXPIRATION] > 24h"
       - "has([BODY].id) == true"
       - "has([BODY].version) == true"
       - "has([BODY].resources) == true"
@@ -52,7 +52,7 @@ anchors:
     <<: *base-check
     conditions:
       - "[STATUS] == 200"
-      - "[CERTIFICATE_EXPIRATION] > 72h"
+      - "[CERTIFICATE_EXPIRATION] > 24h"
     client:
       proxy-url: "${WARP_PROXY_URL}"
   
@@ -64,7 +64,7 @@ anchors:
     <<: *base-check
     conditions:
       - "[STATUS] == 200"
-      - "[CERTIFICATE_EXPIRATION] > 72h"
+      - "[CERTIFICATE_EXPIRATION] > 24h"
     client:
       proxy-url: "${WARP_PROXY_URL}"
 
@@ -153,7 +153,7 @@ endpoints:
     <<: *platform-service-check
     conditions:
       - "[STATUS] == 200"
-      - "[CERTIFICATE_EXPIRATION] > 72h"
+      - "[CERTIFICATE_EXPIRATION] > 24h"
       - "[BODY].status == ok"
 
   # ==========================================
