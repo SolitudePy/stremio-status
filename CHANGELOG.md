@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.4.0](https://github.com/SolitudePy/stremio-status/compare/v1.3.0...v1.4.0) (2026-03-05)
+
+
+### Features
+
+* **status-page:** add AIOStreams nightly checks and fix MidnightIgnite stable URL ([#28](https://github.com/SolitudePy/stremio-status/issues/28)) ([90b23bc](https://github.com/SolitudePy/stremio-status/commit/90b23bc67fb42ae20b08a36f8e3a202fa6b61f23)), closes [#25](https://github.com/SolitudePy/stremio-status/issues/25)
+* **status-page:** add mdblist API and debridio scraper ([#31](https://github.com/SolitudePy/stremio-status/issues/31)) ([f78f9a3](https://github.com/SolitudePy/stremio-status/commit/f78f9a354d0784d49f720724aac3cf5bd7553e77)), closes [#24](https://github.com/SolitudePy/stremio-status/issues/24)
+
+
+### Bug Fixes
+
+* **status-page:** change cert expiration trigger to 24h ([#32](https://github.com/SolitudePy/stremio-status/issues/32)) ([287df9d](https://github.com/SolitudePy/stremio-status/commit/287df9d90e326fe8ff7186c4ca7a1564b20b6d25))
+* **status-page:** change debridio health url ([#33](https://github.com/SolitudePy/stremio-status/issues/33)) ([fc9657c](https://github.com/SolitudePy/stremio-status/commit/fc9657c3ded149dae7e46adc41197fefba3c2eb9)), closes [#24](https://github.com/SolitudePy/stremio-status/issues/24)
+* **status-page:** update Nhyira monitor URLs to fortheweak.cloud ([#30](https://github.com/SolitudePy/stremio-status/issues/30)) ([b58c60c](https://github.com/SolitudePy/stremio-status/commit/b58c60c4467d71c2da35f1355bc095f015e5961d)), closes [#26](https://github.com/SolitudePy/stremio-status/issues/26)
+
 ## [1.3.0](https://github.com/SolitudePy/stremio-status/compare/v1.2.0...v1.3.0) (2026-02-07)
 
 
