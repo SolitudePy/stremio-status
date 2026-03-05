@@ -147,9 +147,9 @@ endpoints:
     url: "https://sooti.click/manifest.json"
     <<: *stremio-addon-check
 
-  - name: DebridIO (UptimeRobot)
+  - name: DebridIO
     group: 01. General Scrapers
-    url: "https://stats.uptimerobot.com/api/getMonitor/Lv6feb4Prf?m=800801961"
+    url: "https://addon.debridio.com/healthz"
     <<: *platform-service-check
     conditions:
       - "[STATUS] == 200"
