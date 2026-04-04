@@ -227,11 +227,6 @@ endpoints:
     url: "https://aiostreams.12312023.xyz/stremio/manifest.json"
     <<: *stremio-addon-check
 
-  - name: AIOStreams (StremioFR)
-    group: 03. AIOStreams Instances
-    url: "https://aiostreams.stremiofr.com/stremio/manifest.json"
-    <<: *stremio-addon-check
-
   - name: AIOStreams (Kuu)
     group: 03. AIOStreams Instances
     url: "https://aiostreams.stremio.ru/stremio/manifest.json"
