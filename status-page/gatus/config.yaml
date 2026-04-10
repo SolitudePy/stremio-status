@@ -122,11 +122,6 @@ endpoints:
     url: "https://nuviostreams.hayd.uk/manifest.json"
     <<: *stremio-addon-check
 
-  - name: WebStreamr
-    group: 01. General Scrapers
-    url: "https://webstreamr.hayd.uk/manifest.json"
-    <<: *stremio-addon-check
-
   - name: AutoStream
     group: 01. General Scrapers
     url: "https://autostreamtest.onrender.com/manifest.json"
