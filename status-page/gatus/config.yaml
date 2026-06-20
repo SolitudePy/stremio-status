@@ -112,26 +112,11 @@ endpoints:
     url: "https://jackettio.elfhosted.com/manifest.json"
     <<: *stremio-addon-check
 
-  - name: TorBox
-    group: 01. General Scrapers
-    url: "https://stremio.torbox.app/manifest.json"
-    <<: *stremio-addon-check
-
-  - name: NuvioStreams
-    group: 01. General Scrapers
-    url: "https://nuviostreams.hayd.uk/manifest.json"
-    <<: *stremio-addon-check
-
   - name: AutoStream
     group: 01. General Scrapers
     url: "https://autostreamtest.onrender.com/manifest.json"
     <<: *stremio-addon-check
 
-  - name: USA TV
-    group: 01. General Scrapers
-    url: "https://848b3516657c-usatv.baby-beamup.club/manifest.json"
-    <<: *stremio-addon-check
-  
   - name: Orion
     group: 01. General Scrapers
     url: "https://5a0d1888fa64-orion.baby-beamup.club/manifest.json"
@@ -140,6 +125,21 @@ endpoints:
   - name: Sootio
     group: 01. General Scrapers
     url: "https://sooti.click/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: TorrentsDB
+    group: 01. General Scrapers
+    url: "https://torrentsdb.com/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: ThePirateBay+
+    group: 01. General Scrapers
+    url: "https://thepiratebay-plus.strem.fun/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: Meteor (MidnightIgnite)
+    group: 01. General Scrapers
+    url: "https://meteorfortheweebs.midnightignite.me/manifest.json"
     <<: *stremio-addon-check
 
   - name: DebridIO
@@ -183,6 +183,21 @@ endpoints:
     group: 02. Metadata & Catalogs
     url: "https://api.mdblist.com"
     <<: *platform-service-check
+
+  - name: TOP Streaming
+    group: 02. Metadata & Catalogs
+    url: "https://top-streaming.stream/stremio/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: TMDB Addon
+    group: 02. Metadata & Catalogs
+    url: "https://94c8cb9f702d-tmdb-addon.baby-beamup.club/manifest.json"
+    <<: *stremio-addon-check
+
+  - name: Dramayo
+    group: 02. Metadata & Catalogs
+    url: "https://dramayo.stream/manifest.json"
+    <<: *stremio-addon-check
 
   # ==========================================
   # GROUP: AIOStreams Instances
@@ -242,37 +257,37 @@ endpoints:
   # ==========================================
   - name: AIOMetadata (ElfHosted)
     group: 04. AIOMetadata Instances
-    url: "https://aiometadata.elfhosted.com/stremio/manifest.json"
+    url: "https://aiometadata.elfhosted.com/manifest.json"
     <<: *stremio-addon-check
 
   - name: AIOMetadata (Nhyira)
     group: 04. AIOMetadata Instances
-    url: "https://aiometadata.fortheweak.cloud/stremio/manifest.json"
+    url: "https://aiometadata.fortheweak.cloud/manifest.json"
     <<: *stremio-addon-check
 
   - name: AIOMetadata (MidnightIgnite)
     group: 04. AIOMetadata Instances
-    url: "https://aiometadatafortheweebs.midnightignite.me/stremio/manifest.json"
+    url: "https://aiometadatafortheweebs.midnightignite.me/manifest.json"
     <<: *stremio-addon-check
 
   - name: AIOMetadata (12312023)
     group: 04. AIOMetadata Instances
-    url: "https://aiometadata.12312023.xyz/stremio/manifest.json"
+    url: "https://aiometadata.12312023.xyz/manifest.json"
     <<: *stremio-addon-check
 
   - name: AIOMetadata (Kuu)
     group: 04. AIOMetadata Instances
-    url: "https://aiometadata.stremio.ru/stremio/manifest.json"
+    url: "https://aiometadata.stremio.ru/manifest.json"
     <<: *stremio-addon-check
 
   - name: AIOMetadata (ATBP)
     group: 04. AIOMetadata Instances
-    url: "https://aiomd.atbphosting.com/stremio/manifest.json"
+    url: "https://aiomd.atbphosting.com/manifest.json"
     <<: *stremio-addon-check
 
   - name: AIOMetadata (Viren070)
     group: 04. AIOMetadata Instances
-    url: "https://aiometadata.viren070.me/stremio/manifest.json"
+    url: "https://aiometadata.viren070.me/manifest.json"
     <<: *stremio-addon-check
 
   # ==========================================
