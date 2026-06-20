@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.4.1](https://github.com/SolitudePy/stremio-status/compare/v1.4.0...v1.4.1) (2026-06-20)
+
+
+### Bug Fixes
+
+* **status-page:** remove offline StremioFR AIOStreams endpoint ([462c523](https://github.com/SolitudePy/stremio-status/commit/462c523803e602aba2984bf195fe97a6478d3211)), closes [#34](https://github.com/SolitudePy/stremio-status/issues/34)
+* **status-page:** remove WebStreamr endpoint from gatus config ([#38](https://github.com/SolitudePy/stremio-status/issues/38)) ([7c76c4d](https://github.com/SolitudePy/stremio-status/commit/7c76c4d42414bdc9e1fc9183015a8db5758c2a7b)), closes [#37](https://github.com/SolitudePy/stremio-status/issues/37)
+* **status-page:** status page updates june 2026 ([#41](https://github.com/SolitudePy/stremio-status/issues/41)) ([ab2fd30](https://github.com/SolitudePy/stremio-status/commit/ab2fd304f160f459030b273be5a5083cbe285e4e)), closes [#39](https://github.com/SolitudePy/stremio-status/issues/39)
+* **status-page:** use proxy for ThePirateBay+ ([#42](https://github.com/SolitudePy/stremio-status/issues/42)) ([ac11cb6](https://github.com/SolitudePy/stremio-status/commit/ac11cb63c070113b9cb9c90b6cb72404fe2f4d54))
+
 ## [1.4.0](https://github.com/SolitudePy/stremio-status/compare/v1.3.0...v1.4.0) (2026-03-05)
 
 
