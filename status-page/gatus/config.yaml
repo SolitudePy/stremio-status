@@ -135,7 +135,7 @@ endpoints:
   - name: ThePirateBay+
     group: 01. General Scrapers
     url: "https://thepiratebay-plus.strem.fun/manifest.json"
-    <<: *stremio-addon-proxy-check
+    <<: *stremio-addon-check
 
   - name: Meteor (MidnightIgnite)
     group: 01. General Scrapers
